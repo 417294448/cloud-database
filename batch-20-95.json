@@ -1,0 +1,379 @@
+{
+  "items": [
+    {
+      "index": 20,
+      "description_cn": "基于内存的列式数据存储，可作为一体机设备或云服务使用",
+      "developer_cn": "SAP"
+    },
+    {
+      "index": 21,
+      "description_cn": "基于 Apache Lucene 的广泛使用的分布式可扩展搜索引擎",
+      "developer_cn": "Apache 软件基金会"
+    },
+    {
+      "index": 22,
+      "description_cn": "混合云数据分析软件平台（Teradata Vantage）",
+      "developer_cn": "Teradata"
+    },
+    {
+      "index": 23,
+      "description_cn": "FileMaker 是一款跨平台的关系型数据库管理系统，包含图形化前端界面",
+      "developer_cn": "Claris"
+    },
+    {
+      "index": 24,
+      "description_cn": "SAP（Sybase）Adaptive Server Enterprise（ASE）是一款企业级关系型数据库管理系统",
+      "developer_cn": "SAP、Sybase"
+    },
+    {
+      "index": 25,
+      "description_cn": "高性能列式 SQL 数据库管理系统，专为在线分析处理（OLAP）而设计，充分利用所有可用系统资源以尽可能快地处理每条分析查询。它同时提供开源软件和云服务两种形态",
+      "developer_cn": "Clickhouse 公司"
+    },
+    {
+      "index": 26,
+      "description_cn": "Apache Spark SQL 是基于 Spark Core 之上的结构化数据处理组件",
+      "developer_cn": "Apache 软件基金会"
+    },
+    {
+      "index": 27,
+      "description_cn": "PostgreSQL 的空间扩展",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 28,
+      "description_cn": "用于存储时间序列、事件和指标的数据库管理系统",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 29,
+      "description_cn": "全球分布式、可横向扩展的多模型数据库服务",
+      "developer_cn": "微软"
+    },
+    {
+      "index": 30,
+      "description_cn": "从 Elasticsearch 分支出来的基于 Apache Lucene 的分布式 RESTful 搜索与分析引擎",
+      "developer_cn": "OpenSearch 软件基金会"
+    },
+    {
+      "index": 31,
+      "description_cn": "基于 Apache Hadoop 和 BigTable 概念的宽列存储",
+      "developer_cn": "Apache 软件基金会"
+    },
+    {
+      "index": 32,
+      "description_cn": "Microsoft Fabric 是一个数据分析平台，可处理从数据采集和处理到构建报表和仪表板的完整数据工作流。它通过数据工程、数据工厂、数据科学、实时智能、数据仓库和数据库等工作负载，整合了数据摄取、转换、实时事件路由和可视化功能。作为软件即服务（SaaS）平台，Fabric 通过 OneLake 集中数据存储。它内嵌了 AI 能力，因此无需手动集成服务，可将原始数据高效转化为可操作的洞察",
+      "developer_cn": "微软"
+    },
+    {
+      "index": 33,
+      "description_cn": "Firebird 是从 Borland InterBase 分支出来的开源关系型数据库管理系统",
+      "developer_cn": "Firebird 基金会"
+    },
+    {
+      "index": 34,
+      "description_cn": "弹性的、大规模数据仓库服务，充分利用了 SQL Server 的广泛生态系统",
+      "developer_cn": "微软"
+    },
+    {
+      "index": 35,
+      "description_cn": "用于商业智能工具的大规模数据仓库服务",
+      "developer_cn": "亚马逊（基于 PostgreSQL）"
+    },
+    {
+      "index": 36,
+      "description_cn": "云托管的实时文档存储。iOS、Android 和 JavaScript 客户端共享同一个 Realtime Database 实例，并自动接收最新数据的更新",
+      "developer_cn": "谷歌"
+    },
+    {
+      "index": 37,
+      "description_cn": "内存键值存储，最初用于缓存",
+      "developer_cn": "Danga Interactive"
+    },
+    {
+      "index": 38,
+      "description_cn": "来自 IBM 的安全可嵌入数据库，定位为 IBM Db2 之外相对低成本的产品，针对 OLTP 和物联网数据进行了优化",
+      "developer_cn": "IBM、HCL Technologies"
+    },
+    {
+      "index": 39,
+      "description_cn": "一个用于无界和有界数据流上有状态计算的框架和分布式处理引擎，通过增加 Table Store 提供完整的数据库能力",
+      "developer_cn": "Apache 软件基金会及贡献者"
+    },
+    {
+      "index": 40,
+      "description_cn": "用于 Hadoop 的分析型数据库管理系统",
+      "developer_cn": "Apache 软件基金会"
+    },
+    {
+      "index": 41,
+      "description_cn": "可嵌入的、进程内的列式 SQL OLAP 关系型数据库管理系统",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 42,
+      "description_cn": "专为云构建的完全托管关系型数据库服务，为 MySQL、PostgreSQL 和 DSQL 提供全球规模的无与伦比的高性能和高可用性",
+      "developer_cn": "亚马逊"
+    },
+    {
+      "index": 43,
+      "description_cn": "集成了缓存、强大搜索引擎、内置操作和分析能力以及嵌入式移动数据库的分布式文档存储",
+      "developer_cn": "Couchbase 公司"
+    },
+    {
+      "index": 44,
+      "description_cn": "开源时序数据库管理系统和监控系统",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 45,
+      "description_cn": "Cloud Firestore 是一种自动扩缩的文档数据库，用于移动和 Web 应用的数据存储、同步和查询。它与其他 Firebase 和 Google Cloud Platform 产品无缝集成",
+      "developer_cn": "谷歌"
+    },
+    {
+      "index": 46,
+      "description_cn": "托管的云原生向量数据库",
+      "developer_cn": "Pinecone Systems 公司"
+    },
+    {
+      "index": 47,
+      "description_cn": "功能齐全的小体积关系型数据库管理系统，可嵌入 Java 应用程序或作为数据库服务器使用",
+      "developer_cn": "Thomas Mueller"
+    },
+    {
+      "index": 48,
+      "description_cn": "云上和云下的分析数据库和查询引擎，用于结构化和半结构化的流数据和批数据。内建算法的机器学习平台，具备数据准备能力，可通过 SQL 或 Python 进行模型评估和管理",
+      "developer_cn": "OpenText"
+    },
+    {
+      "index": 49,
+      "description_cn": "高性能时序数据库管理系统",
+      "developer_cn": "Kx Systems（First Derivatives 旗下部门）"
+    },
+    {
+      "index": 50,
+      "description_cn": "dBase 是最早在 PC 上提供开发环境的数据库之一。其最新版本 dBase V 仍以 dBase classic 名义销售，需要 DOS 模拟器运行。当前更新产品为 dBase plus",
+      "developer_cn": "Asthon Tate"
+    },
+    {
+      "index": 51,
+      "description_cn": "分布式可靠的键值存储",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 52,
+      "description_cn": "用于大数据分析的快速分布式 SQL 查询引擎，从 Presto 分支而来，最初名为 PrestoSQL",
+      "developer_cn": "Trino 软件基金会"
+    },
+    {
+      "index": 53,
+      "description_cn": "完全可定制的托管搜索 API",
+      "developer_cn": "Algolia 公司"
+    },
+    {
+      "index": 54,
+      "description_cn": "专为向量数据的高效存储和向量相似性搜索而设计的数据库管理系统",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 55,
+      "description_cn": "专为移动设备构建的数据库管理系统，是 SQLite 和 Core Data 的快速、易用替代方案",
+      "developer_cn": "Realm（2019年5月被 MongoDB 收购）"
+    },
+    {
+      "index": 56,
+      "description_cn": "IBM PureSystems 中的数据仓库和分析一体机",
+      "developer_cn": "IBM"
+    },
+    {
+      "index": 57,
+      "description_cn": "面向 Web 和移动应用开发的搜索即服务",
+      "developer_cn": "微软"
+    },
+    {
+      "index": 58,
+      "description_cn": "面向大数据的分布式 SQL 查询引擎",
+      "developer_cn": "Facebook、Presto 基金会"
+    },
+    {
+      "index": 59,
+      "description_cn": "基于神经网络或语义匹配的高性能向量数据库",
+      "developer_cn": "Qdrant"
+    },
+    {
+      "index": 60,
+      "description_cn": "用于搜索不同来源数据（如关系型数据库）的开源搜索引擎",
+      "developer_cn": "Sphinx Technologies 公司"
+    },
+    {
+      "index": 61,
+      "description_cn": "受 Lotus Notes 启发的原生 JSON 文档存储，可从全球分布的服务器集群扩展到移动手机",
+      "developer_cn": "Apache 软件基金会"
+    },
+    {
+      "index": 62,
+      "description_cn": "基于 PostgreSQL 的时序数据库管理系统，针对快速摄取和复杂查询进行了优化",
+      "developer_cn": "Timescale"
+    },
+    {
+      "index": 63,
+      "description_cn": "基于 PostgreSQL 的分析型数据库平台，全称为 Pivotal Greenplum Database",
+      "developer_cn": "Pivotal Software 公司"
+    },
+    {
+      "index": 64,
+      "description_cn": "DolphinDB 是高性能时序数据库管理系统。它集成了易用且功能完整的编程语言和大容量高速流分析系统，提供操作简便性、可扩展性、容错性和高并发能力",
+      "developer_cn": "DolphinDB 公司"
+    },
+    {
+      "index": 65,
+      "description_cn": "兼容 Cassandra 和 DynamoDB 的宽列存储",
+      "developer_cn": "ScyllaDB"
+    },
+    {
+      "index": 66,
+      "description_cn": "一款面向搜索、RAG 和 AI 代理的开源 AI 原生向量数据库，内置向量化、混合搜索、代理式查询 Agent 和 Engram 代理记忆功能。可通过自托管或 Weaviate Cloud 的完全托管服务使用",
+      "developer_cn": "Weaviate B.V."
+    },
+    {
+      "index": 67,
+      "description_cn": "广泛采用的内存数据网格",
+      "developer_cn": "Hazelcast"
+    },
+    {
+      "index": 68,
+      "description_cn": "CockroachDB 是具备高韧性的全球分布式 SQL 数据平台，深受全球企业信赖，用于运行需要快速扩展、防范和抵御灾难并在任何环境中稳定运行的关键任务 AI 和其他应用。它可在三大公有云、私有云、本地部署和混合配置中运行，为财富 500 强、福布斯全球 2000 强和 Inc. 5000 企业以及颠覆性的 AI 创新者提供支持",
+      "developer_cn": "Cockroach Labs"
+    },
+    {
+      "index": 69,
+      "description_cn": "用于分析应用的多维数据库平台",
+      "developer_cn": "甲骨文"
+    },
+    {
+      "index": 70,
+      "description_cn": "用于时序数据的数据记录和绘图工具",
+      "developer_cn": "Chris Davis"
+    },
+    {
+      "index": 71,
+      "description_cn": "以速度、规模和成本节省为特点的实时数据库。混合读写工作负载下实现毫秒级延迟。高度分布式。经过验证的强一致性。分布式 ACID 事务。针对闪存优化，降低总体拥有成本并提升可扩展性。Aerospike 数据库是一种无共享、多线程、多模型的数据平台，设计用于在服务器节点集群上高效运行，利用现代硬件和网络技术提供可靠快速性能，在 PB 级数据上实现亚毫秒级速度",
+      "developer_cn": "Aerospike"
+    },
+    {
+      "index": 72,
+      "description_cn": "",
+      "developer_cn": "Apache 软件基金会"
+    },
+    {
+      "index": 73,
+      "description_cn": "可嵌入的持久化键值存储，针对快速存储（闪存和 RAM）进行了优化",
+      "developer_cn": "Facebook 公司"
+    },
+    {
+      "index": 74,
+      "description_cn": "用于操作和事务处理的企业级 NoSQL 数据库",
+      "developer_cn": "MarkLogic 公司"
+    },
+    {
+      "index": 75,
+      "description_cn": "专为高维度和高基数数据的亚秒级 OLAP 查询设计的开源分析数据存储",
+      "developer_cn": "Apache 软件基金会及贡献者"
+    },
+    {
+      "index": 76,
+      "description_cn": "兼容 MySQL、PostgreSQL 和 Oracle 的云原生关系型数据库，专为业务关键型应用设计",
+      "developer_cn": "阿里巴巴"
+    },
+    {
+      "index": 77,
+      "description_cn": "轻量级、久经考验的关系型数据库管理系统",
+      "developer_cn": "Embarcadero"
+    },
+    {
+      "index": 78,
+      "description_cn": "TiDB 是一个面向云原生、数据密集型和 AI 驱动应用的开源分布式 SQL 数据库。它兼容 MySQL，具备横向扩展、强一致性和高可用性",
+      "developer_cn": "PingCAP 公司"
+    },
+    {
+      "index": 79,
+      "description_cn": "适用于服务器、桌面、远程办公和移动环境的关系型数据库管理系统及同步技术",
+      "developer_cn": "SAP"
+    },
+    {
+      "index": 80,
+      "description_cn": "原生多模型数据库管理系统，支持图、文档、键值和搜索。全部在一个引擎中，使用一种查询语言即可访问",
+      "developer_cn": "Arango"
+    },
+    {
+      "index": 81,
+      "description_cn": "多模型、可扩展的分布式 NoSQL 数据库，旨在可配置的存储节点集上提供高可靠、灵活且可用的数据管理",
+      "developer_cn": "甲骨文"
+    },
+    {
+      "index": 82,
+      "description_cn": "用于时序数据的高性能开源 SQL 数据库",
+      "developer_cn": "QuestDB Technology 公司"
+    },
+    {
+      "index": 83,
+      "description_cn": "集成数据库管理系统的应用开发环境",
+      "developer_cn": "Progress Software Corporation"
+    },
+    {
+      "index": 84,
+      "description_cn": "Google Cloud Platform 上自动扩缩的 NoSQL 数据库即服务（DBaaS）",
+      "developer_cn": "谷歌"
+    },
+    {
+      "index": 85,
+      "description_cn": "DataStax Enterprise（DSE）是基于 Apache Cassandra 构建的始终在线、可扩展的数据平台，专为混合云设计。DSE 将图、搜索、分析、管理、开发者工具和监控集成到一个统一平台中",
+      "developer_cn": "DataStax"
+    },
+    {
+      "index": 86,
+      "description_cn": "久负盛名的关系型数据库管理系统",
+      "developer_cn": "Actian Corporation"
+    },
+    {
+      "index": 87,
+      "description_cn": "分布式、容错的键值存储",
+      "developer_cn": "开源社区（前身为 Basho Technologies）"
+    },
+    {
+      "index": 88,
+      "description_cn": "完全托管的大数据交互式分析平台",
+      "developer_cn": "微软"
+    },
+    {
+      "index": 89,
+      "description_cn": "Chroma 是一款开源向量数据库管理系统",
+      "developer_cn": "Chroma"
+    },
+    {
+      "index": 90,
+      "description_cn": "功能齐全的小体积关系型数据库管理系统，可嵌入 Java 应用程序或作为数据库服务器使用",
+      "developer_cn": "Apache 软件基金会"
+    },
+    {
+      "index": 91,
+      "description_cn": "兼容 MySQL 协议的分布式关系型数据库管理系统，结合内存行存储和磁盘列存储，并采用专利通用存储技术，可在单一表类型中同时处理事务和分析工作负载",
+      "developer_cn": "SingleStore 公司"
+    },
+    {
+      "index": 92,
+      "description_cn": "时序数据库管理系统和大数据平台",
+      "developer_cn": "TDEngine（前身为 Taos Data）"
+    },
+    {
+      "index": 93,
+      "description_cn": "广泛采用的 Java 缓存，支持分层存储选项",
+      "developer_cn": "Terracotta 公司（隶属 Software AG）"
+    },
+    {
+      "index": 94,
+      "description_cn": "可横向扩展、全局一致的关系型数据库服务。它是 Google 核心数据库的外部化产品，支撑着 Google 最大的业务领域，如广告和 Google Play",
+      "developer_cn": "谷歌"
+    }
+  ]
+}
