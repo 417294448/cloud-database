@@ -197,7 +197,7 @@ const I18N = {
     unkDecade: 'Unknown', noWebsite: 'No website',
   }
 };
-let lang = localStorage.getItem('dbe-lang') || 'zh';
+let lang = localStorage.getItem('dbe-lang') || 'en';
 const t = k => I18N[lang][k];
 const F = (r, base) => lang === 'zh' ? (r[base + '_cn'] || r[base] || '') : (r[base] || r[base + '_cn'] || '');
 /* developer 不做跨语言回退：其 _cn 字段含 119 条"开源社区"等补填值（英文原文为空），
