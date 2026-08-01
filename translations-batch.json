@@ -1,0 +1,124 @@
+{
+  "items": [
+    {
+      "database_model_cn": "关系型数据库，文档型数据库，图数据库，RDF 存储，空间数据库，向量数据库",
+      "description_cn": "广泛使用的关系型数据库",
+      "developer_cn": "甲骨文（Oracle）",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "关系型数据库，文档型数据库，空间数据库",
+      "description_cn": "广泛使用的开源关系型数据库",
+      "developer_cn": "甲骨文（Oracle）",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "关系型数据库，文档型数据库，图数据库，空间数据库",
+      "description_cn": "微软旗舰级关系型数据库",
+      "developer_cn": "微软",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "关系型数据库，文档型数据库，图数据库，空间数据库，向量数据库",
+      "description_cn": "广泛使用的开源关系型数据库",
+      "developer_cn": "PostgreSQL 全球开发组",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "文档型数据库，键值数据库，空间数据库，搜索引擎，时序数据库，向量数据库",
+      "description_cn": "最流行的文档型数据库之一，既提供全托管云服务，也支持在自管理基础设施上部署",
+      "developer_cn": "MongoDB 公司",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "关系型数据库",
+      "description_cn": "面向结构化和半结构化数据的云数据仓库服务",
+      "developer_cn": "Snowflake 公司",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "文档型数据库，关系型数据库",
+      "description_cn": "Databricks 湖仓一体平台融合数据湖与数据仓库的特性，为结构化和非结构化数据提供统一视图，基于 Apache Spark 构建",
+      "developer_cn": "Databricks 公司",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "键值数据库，文档型数据库，图数据库，空间数据库，搜索引擎，时序数据库，向量数据库",
+      "description_cn": "流行的内存数据平台，可用作缓存、消息代理和数据库，支持本地部署、跨云及混合环境",
+      "developer_cn": "Redis 项目核心团队（由 Salvatore Sanfilippo 发起）",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "关系型数据库，文档型数据库，RDF 存储，空间数据库",
+      "description_cn": "常用于 IBM 主机环境，主机版与 Windows/Linux 版为两个不同版本",
+      "developer_cn": "IBM",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "宽列数据库，向量数据库",
+      "description_cn": "基于 BigTable 和 DynamoDB 设计理念的宽列数据库",
+      "developer_cn": "Apache 软件基金会",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "关系型数据库",
+      "description_cn": "广泛使用的嵌入式、进程内关系型数据库",
+      "developer_cn": "Dwayne Richard Hipp",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "搜索引擎，向量数据库，文档型数据库，空间数据库",
+      "description_cn": "基于 Apache Lucene 的分布式 RESTful 现代搜索与分析引擎",
+      "developer_cn": "Elastic 公司",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "关系型数据库，文档型数据库，图数据库，空间数据库",
+      "description_cn": "开源关系型数据库，具备高可用、安全、互操作与性能增强能力，内置兼容 MySQL 与 Oracle Database；MariaDB ColumnStore 提供面向分析型负载的列式存储引擎，MariaDB Server 亦支持面向 AI 应用的向量嵌入搜索",
+      "developer_cn": "MariaDB 公司",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "关系型数据库，文档型数据库，图数据库，空间数据库",
+      "description_cn": "与 Microsoft SQL Server 高度兼容的数据库即服务（DBaaS）",
+      "developer_cn": "微软",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "搜索引擎",
+      "description_cn": "面向大数据的分析平台",
+      "developer_cn": "Splunk 公司",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "关系型数据库",
+      "description_cn": "构建于 Hadoop 之上的数据仓库软件，用于查询和管理大规模分布式数据集",
+      "developer_cn": "Apache 软件基金会",
+      "license_cn": "开源"
+    },
+    {
+      "database_model_cn": "关系型数据库",
+      "description_cn": "将后端关系型数据库引擎（JET / ACE）与用于数据操作和查询的图形界面前端相结合的桌面数据库",
+      "developer_cn": "微软",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "文档型数据库，键值数据库",
+      "description_cn": "亚马逊提供的托管可扩展数据库服务，数据存储于亚马逊云中",
+      "developer_cn": "亚马逊",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "关系型数据库",
+      "description_cn": "大规模数据仓库服务，采用仅追加（append-only）表",
+      "developer_cn": "谷歌",
+      "license_cn": "商业许可"
+    },
+    {
+      "database_model_cn": "图数据库",
+      "description_cn": "可扩展、符合 ACID 的图数据库，采用高性能分布式集群架构，提供自托管与云服务两种形态",
+      "developer_cn": "Neo4j 公司",
+      "license_cn": "开源"
+    }
+  ]
+}

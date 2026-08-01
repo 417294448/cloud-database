@@ -1,0 +1,199 @@
+{
+  "items": [
+    {
+      "index": 395,
+      "description_cn": "一个大数据分析平台",
+      "developer_cn": "Adapdix"
+    },
+    {
+      "index": 396,
+      "description_cn": "基于 MariaDB 的机密 RDBMS，完全在运行时加密的 Intel SGX 飞地中运行",
+      "developer_cn": "Edgeless Systems"
+    },
+    {
+      "index": 397,
+      "description_cn": "可扩展、ACID 兼容的原生分布式并行图平台",
+      "developer_cn": "浙江创邻科技有限公司"
+    },
+    {
+      "index": 398,
+      "description_cn": "H2 的空间扩展",
+      "developer_cn": "CNRS（法国国家科学研究中心）"
+    },
+    {
+      "index": 399,
+      "description_cn": "高性价比的键值存储",
+      "developer_cn": "Levyx 公司"
+    },
+    {
+      "index": 400,
+      "description_cn": "HGraphDB 是一个客户端层，通过实现 Tinkerpop 3 接口将 HBase 用作图数据库",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 401,
+      "description_cn": "Google LevelDB 的一个分支",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 402,
+      "description_cn": "用于桌面和移动应用的事务型嵌入式数据库",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 403,
+      "description_cn": "扩展 Java Map 接口的 Java 嵌入式键值存储",
+      "developer_cn": "Boiler Bay 公司"
+    },
+    {
+      "index": 404,
+      "description_cn": "面向 AI 和 IoT 应用的高性能、高可扩展性 DBMS",
+      "developer_cn": "DataJaguar 公司"
+    },
+    {
+      "index": 405,
+      "description_cn": "",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 406,
+      "description_cn": "浪潮 K1 大型机专用的 Oracle 兼容 DBMS，在中国市场提供",
+      "developer_cn": "浪潮集团"
+    },
+    {
+      "index": 407,
+      "description_cn": "基于 Cassandra 的时序 DBMS",
+      "developer_cn": "OpenNMS Group"
+    },
+    {
+      "index": 408,
+      "description_cn": "基于 Kubernetes 的高性能可扩展时序 DBMS，专为实时分析设计",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 409,
+      "description_cn": "开源分布式时序 DBMS，具有高并发、高性能和高可扩展性",
+      "developer_cn": "华为与 openGemini 社区"
+    },
+    {
+      "index": 410,
+      "description_cn": "基于 PostgreSQL 的企业级分布式 HTAP 开源数据库",
+      "developer_cn": "开放原子开源基金会，前身由腾讯主导"
+    },
+    {
+      "index": 411,
+      "description_cn": "专为优化数据分析与存储解决方案而设计的列式数据库，确保无缝、高速的使用体验",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 412,
+      "description_cn": "面向机器人和工业物联网（IIoT）的存储与流式解决方案。存储带标签的时间戳 blob，支持基于存储容量的保留策略（以 FIFO 配额实现），并支持基于标签在实例间选择性复制数据，例如从边缘到云端。",
+      "developer_cn": "ReductSoftware"
+    },
+    {
+      "index": 413,
+      "description_cn": "用于日志文件数据的统一采集、索引与搜索",
+      "developer_cn": "日志易"
+    },
+    {
+      "index": 414,
+      "description_cn": "",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 415,
+      "description_cn": "开源时序 DBMS",
+      "developer_cn": "Cesbit"
+    },
+    {
+      "index": 416,
+      "description_cn": "免费开源键值存储，旨在提供大规模灵活数据建模能力。前身为 TerrabaseDB。",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 417,
+      "description_cn": "专注于性能的时空 DBMS",
+      "developer_cn": "Mireo"
+    },
+    {
+      "index": 418,
+      "description_cn": "SpacetimeDB 是一款专为构建实时、有状态应用而设计的关系数据库，将数据库与应用/服务器运行时合二为一，以便在靠近数据的位置存储数据并运行应用逻辑。开发者将其服务器代码以 Wasm 或 JavaScript 形式上传到数据库进程内运行，客户端直接连接数据库、调用函数，并通过 SQL 查询订阅数据。",
+      "developer_cn": "Clockwork Labs"
+    },
+    {
+      "index": 419,
+      "description_cn": "无服务器云原生向量数据库",
+      "developer_cn": "SvectorDB"
+    },
+    {
+      "index": 420,
+      "description_cn": "基于 RocksDB 分支的键值存储，具备先进的压缩算法。可独立使用或作为 MySQL 和 MongoDB 的存储引擎。",
+      "developer_cn": "字节跳动，原由 Terark 开发"
+    },
+    {
+      "index": 421,
+      "description_cn": "TidesDB 是用 C 编写的高效嵌入式键值存储引擎库。基于 LSM-tree 架构构建，可作为构建数据库系统的基础库，或直接用作独立的键值或列存储。还可作为 TideSQL 插件接入 MariaDB。",
+      "developer_cn": "Alex Gaetano Padula、TidesDB 贡献者、TidesDB 公司"
+    },
+    {
+      "index": 422,
+      "description_cn": "水平可扩展、支持 ACID 事务的文档数据库，既可提供全托管云服务，也可部署在自管基础设施上",
+      "developer_cn": "Tigris Data 公司"
+    },
+    {
+      "index": 423,
+      "description_cn": "一套库集合，允许应用程序在文件中存储和查询键值对。Tokyo Cabinet 和 Kyoto Cabinet 的后继者。",
+      "developer_cn": "Mikio Hirabayashi（平林幹雄）"
+    },
+    {
+      "index": 424,
+      "description_cn": "分布式键值存储",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 425,
+      "description_cn": "资源优化、高性能、通用的 RDBMS",
+      "developer_cn": "Transaction Software GmbH"
+    },
+    {
+      "index": 426,
+      "description_cn": "分布式分析数据库，旨在替代 Hadoop+MPP 混合架构",
+      "developer_cn": "星环科技"
+    },
+    {
+      "index": 427,
+      "description_cn": "云原生分布式向量 DBMS，支持海量向量数据集的存储、检索与管理",
+      "developer_cn": "星环科技"
+    },
+    {
+      "index": 428,
+      "description_cn": "基于分布式架构的 OLTP DBMS，高度兼容 MySQL 和 Oracle",
+      "developer_cn": "星环科技"
+    },
+    {
+      "index": 429,
+      "description_cn": "面向企业级图应用的分布式图 DBMS",
+      "developer_cn": "星环科技"
+    },
+    {
+      "index": 430,
+      "description_cn": "具备 SQL 风格分析功能的嵌入式键值存储",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 431,
+      "description_cn": ".NET 对象数据库，支持嵌入式/分布式部署，并可扩展为图数据模型（VelocityGraph）",
+      "developer_cn": "VelocityDB 公司"
+    },
+    {
+      "index": 432,
+      "description_cn": "VillageSQL 是一个开源跟踪分支，可直接替代 MySQL，并添加了对 MySQL 的扩展以支持无许可创新。",
+      "developer_cn": "VillageSQL"
+    },
+    {
+      "index": 433,
+      "description_cn": "",
+      "developer_cn": "开源社区"
+    }
+  ]
+}
