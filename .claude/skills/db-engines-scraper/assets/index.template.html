@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>数据库选型与分析 · 数据来源 DB-Engines</title>
+<style>
+  :root {
+    --bg: #f4f6fa; --card: #fff; --border: #e2e8f0; --text: #1a202c; --muted: #64748b;
+    --primary: #2563eb; --primary-light: #dbeafe; --accent: #059669; --warn: #d97706;
+    --shadow: 0 1px 3px rgba(0,0,0,.08);
+  }
+  [data-theme="dark"] {
+    --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8;
+    --primary: #3b82f6; --primary-light: #1e3a5f; --accent: #34d399; --warn: #fbbf24;
+    --shadow: 0 1px 3px rgba(0,0,0,.4);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+
+  /* ---------- 顶栏 ---------- */
+  header { background: var(--card); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
+  header h1 { font-size: 18px; font-weight: 700; white-space: nowrap; }
+  header h1 .sub { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 8px; }
+  .header-right { margin-left: auto; display: flex; gap: 8px; }
+  .btn { border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+  .btn:hover { border-color: var(--primary); color: var(--primary); }
+  .btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+  .container { max-width: 1500px; margin: 0 auto; padding: 16px 24px; }
+
+  /* ---------- 统计卡 ---------- */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 14px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
+  .stat-card .num { font-size: 24px; font-weight: 700; color: var(--primary); }
+  .stat-card .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+  /* ---------- 图表 ---------- */
+  .charts { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; margin-bottom: 14px; }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .chart-card h3 { font-size: 13px; margin-bottom: 10px; color: var(--muted); font-weight: 600; }
+  .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 12px; }
+  .bar-row .bar-label { width: 130px; text-align: right; color: var(--muted); flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bar-row .bar-track { flex: 1; background: var(--bg); border-radius: 3px; height: 16px; }
+  .bar-row .bar-fill { height: 100%; border-radius: 3px; background: var(--primary); min-width: 2px; transition: width .3s; cursor: pointer; }
+  .bar-row .bar-fill:hover { opacity: .8; }
+  .bar-row .bar-val { width: 36px; color: var(--muted); flex-shrink: 0; }
+  .donut-wrap { display: flex; align-items: center; gap: 18px; }
+  .donut-legend { font-size: 13px; }
+  .donut-legend .item { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; cursor: pointer; }
+  .donut-legend .item:hover { color: var(--primary); }
+  .donut-legend .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ---------- 工具条：搜索 + 筛选下拉 ---------- */
+  .toolbar { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .toolbar-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .search-box { flex: 1; min-width: 220px; position: relative; }
+  .search-box input { width: 100%; padding: 8px 12px 8px 34px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 14px; }
+  .search-box input:focus { outline: none; border-color: var(--primary); }
+  .search-box::before { content: "🔍"; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; opacity: .5; }
+  .filter-select { position: relative; }
+  .filter-select select { padding: 8px 28px 8px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; appearance: none; max-width: 200px; }
+  .filter-select::after { content: "▾"; position: absolute; right: 9px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--muted); font-size: 11px; }
+  .filter-select select:focus { outline: none; border-color: var(--primary); }
+  /* 已选筛选条件 chips */
+  .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+  .chips:empty { display: none; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; background: var(--primary-light); color: var(--primary); border-radius: 12px; padding: 3px 6px 3px 10px; font-size: 12px; cursor: default; }
+  .chip .x { cursor: pointer; font-weight: 700; opacity: .6; padding: 0 3px; }
+  .chip .x:hover { opacity: 1; }
+  .chip.clear-all { cursor: pointer; background: transparent; border: 1px dashed var(--border); color: var(--muted); }
+
+  /* ---------- 表格 ---------- */
+  .table-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; }
+  thead th { background: var(--bg); padding: 10px 12px; text-align: left; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
+  thead th:hover { color: var(--primary); }
+  thead th .arrow { font-size: 10px; margin-left: 3px; }
+  tbody td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; overflow-wrap: anywhere; word-break: break-word; }
+  tbody tr:hover { background: var(--bg); }
+  tbody tr:last-child td { border-bottom: none; }
+  .rank-badge { display: inline-block; min-width: 34px; text-align: center; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: var(--bg); color: var(--muted); }
+  .rank-badge.top10 { background: #fef3c7; color: #92400e; }
+  [data-theme="dark"] .rank-badge.top10 { background: #451a03; color: #fbbf24; }
+  .dbms-name { font-weight: 600; color: var(--primary); text-decoration: none; }
+  .dbms-name:hover { text-decoration: underline; }
+  .dbms-name .ext { font-size: 10px; opacity: .55; margin-left: 2px; }
+  .dbms-plain { font-weight: 600; color: var(--muted); }
+  .desc-cell { color: var(--muted); font-size: 12px; max-width: 380px; }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; background: var(--primary-light); color: var(--primary); margin: 1px 2px 1px 0; white-space: nowrap; cursor: pointer; }
+  .tag:hover { background: var(--primary); color: #fff; }
+  .lic-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; font-size: 15px; cursor: default; }
+  .lic-icon.lic-oss { background: #d1fae5; color: #059669; }
+  .lic-icon.lic-com { background: #fef3c7; }
+  .lic-icon.lic-both { background: #ede9fe; }
+  .lic-icon.lic-other { background: #e2e8f0; }
+  .lic-icon.lic-na { background: #f1f5f9; opacity: .55; }
+  [data-theme="dark"] .lic-icon.lic-oss { background: #064e3b; color: #34d399; }
+  [data-theme="dark"] .lic-icon.lic-com { background: #451a03; }
+  [data-theme="dark"] .lic-icon.lic-both { background: #3b0764; }
+  [data-theme="dark"] .lic-icon.lic-other { background: #334155; }
+  [data-theme="dark"] .lic-icon.lic-na { background: #1e293b; opacity: .55; }
+  .muted { color: var(--muted); }
+
+  .pagination { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
+  .pagination .info { color: var(--muted); font-size: 13px; margin-right: auto; }
+  .pagination button { min-width: 32px; }
+  .pagination select { padding: 5px; border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--text); }
+
+  .no-result { text-align: center; padding: 48px; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .charts { grid-template-columns: 1fr; }
+    .desc-cell { max-width: 220px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🗄️ <span data-i18n="title">DB-Engines 数据库分析</span><span class="sub" id="subtitle"></span></h1>
+  <div class="header-right">
+    <button class="btn" id="btn-lang">EN</button>
+    <button class="btn" id="btn-theme" title="主题">🌙</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="stats" id="stats"></div>
+
+  <div class="charts">
+    <div class="chart-card"><h3 data-i18n="chartModel">数据库模型分布（Top 10）</h3><div id="chart-model"></div></div>
+    <div class="chart-card"><h3 data-i18n="chartLicense">许可证分布</h3><div class="donut-wrap"><svg id="donut" width="120" height="120" viewBox="0 0 42 42"></svg><div class="donut-legend" id="donut-legend"></div></div></div>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-row">
+      <div class="search-box"><input id="search" data-i18n-ph="searchPh" placeholder="搜索名称 / 简介 / 开发方（支持中英文）…"></div>
+    </div>
+    <div class="toolbar-row" id="filter-row"></div>
+    <div class="chips" id="chips"></div>
+  </div>
+
+  <div class="table-card">
+    <div class="table-scroll">
+      <table>
+        <thead><tr id="thead-row"></tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    <div class="pagination" id="pagination"></div>
+  </div>
+</div>
+
+<script id="db-data" type="application/json">__DATA_PLACEHOLDER__</script>
+
+<script>
+"use strict";
+const DATA = JSON.parse(document.getElementById('db-data').textContent);
+const RECORDS = DATA.databases;
+
+/* ---------------- i18n ---------------- */
+const I18N = {
+  zh: {
+    title: '数据库选型与分析',
+    subtitle: (m, n) => `数据来源：DB-Engines（${m} · 共 ${n} 个系统）`,
+    searchPh: '搜索名称 / 简介 / 开发方（支持中英文）…',
+    chartModel: '数据库模型分布（Top 10，点击条形可筛选）',
+    chartLicense: '许可证分布（点击图例可筛选）',
+    fModel: '数据库模型', fLicense: '许可证', fDecade: '发布年代', fRank: '排名区间',
+    selAll: v => `${v}：全部`,
+    clear: '清除筛选',
+    colRank: '排名', colName: '名称', colDesc: '简介', colModel: '数据库模型', colDeveloper: '开发方', colRelease: '首次/当前版本', colLicense: '许可证',
+    stTotal: '系统总数', stShown: '当前筛选', stOss: '开源', stCom: '商业许可',
+    all: '全部', top10: 'Top 10', top50: 'Top 50', top100: 'Top 100', other: '100 名以后',
+    noResult: '没有匹配的记录，试试调整筛选或搜索词',
+    pageInfo: (shown, total) => `显示 ${shown} / ${total} 条`,
+    perPage: '每页',
+    unkDecade: '未知', noWebsite: '无官网链接',
+  },
+  en: {
+    title: 'Database Selection & Analysis',
+    subtitle: (m, n) => `Data source: DB-Engines (${m} · ${n} systems)`,
+    searchPh: 'Search name / description / developer (EN & 中文)…',
+    chartModel: 'Database Models (Top 10, click bar to filter)',
+    chartLicense: 'License Distribution (click legend to filter)',
+    fModel: 'Model', fLicense: 'License', fDecade: 'Decade', fRank: 'Rank',
+    selAll: v => `${v}: All`,
+    clear: 'Clear filters',
+    colRank: 'Rank', colName: 'Name', colDesc: 'Description', colModel: 'Database Model', colDeveloper: 'Developer', colRelease: 'Initial / Current', colLicense: 'License',
+    stTotal: 'Total Systems', stShown: 'Filtered', stOss: 'Open Source', stCom: 'Commercial',
+    all: 'All', top10: 'Top 10', top50: 'Top 50', top100: 'Top 100', other: 'Beyond 100',
+    noResult: 'No matching records. Try adjusting filters or search.',
+    pageInfo: (shown, total) => `Showing ${shown} / ${total}`,
+    perPage: 'Per page',
+    unkDecade: 'Unknown', noWebsite: 'No website',
+  }
+};
+let lang = localStorage.getItem('dbe-lang') || 'zh';
+const t = k => I18N[lang][k];
+const F = (r, base) => lang === 'zh' ? (r[base + '_cn'] || r[base] || '') : (r[base] || r[base + '_cn'] || '');
+/* developer 不做跨语言回退：其 _cn 字段含 119 条"开源社区"等补填值（英文原文为空），
+   EN 模式回退会显示中文。各语言独立显示，为空交给表格渲染 '-'. */
+const FD = r => lang === 'zh' ? (r.developer_cn || r.developer || '') : (r.developer || '');
+
+/* ---------------- 预处理 ---------------- */
+const licClass = lic => {
+  if (!lic) return 'na';
+  const l = lic.toLowerCase();
+  if (l === 'open source') return 'oss';
+  if (l === 'commercial') return 'com';
+  if (l.includes('open') && l.includes('com')) return 'both';
+  return 'other';
+};
+const LIC_LABEL = { oss: '开源', com: '商业', both: '双许可', other: '其他', na: '未知' };
+const LIC_LABEL_EN = { oss: 'Open Source', com: 'Commercial', both: 'Dual', other: 'Other', na: 'N/A' };
+const licLabel = cls => (lang === 'zh' ? LIC_LABEL : LIC_LABEL_EN)[cls] || cls;
+// 许可证分类 -> 图标（常用许可证语义符号：🔓开源 🔒商业 🔀双许可 📄其他 ➖未知）
+const LIC_ICON = { oss: '🔓', com: '🔒', both: '🔀', other: '📄', na: '➖' };
+
+const decadeOf = r => {
+  const m = (r.initial_release || '').match(/(19|20)\d{2}/);
+  return m ? Math.floor(+m[0] / 10) * 10 + 's' : '';
+};
+const primaryModel = r => (r.database_model || '').split(',')[0].trim();
+
+RECORDS.forEach((r, i) => {
+  r._i = i;
+  r._primary = primaryModel(r);
+  r._lic = licClass(r.license);
+  r._decade = decadeOf(r);
+  r._search = [r.dbms, r.description, r.description_cn, r.developer, r.developer_cn, r.database_model, r.database_model_cn]
+    .join(' ').toLowerCase();
+});
+
+let MODEL_LABEL = {};
+function rebuildModelLabels() {
+  MODEL_LABEL = {};
+  RECORDS.forEach(r => {
+    if (!r._primary) return;
+    MODEL_LABEL[r._primary] = lang === 'zh'
+      ? (r.database_model_cn.split('，')[0] || r._primary)
+      : r._primary;
+  });
+}
+const modelLabel = v => MODEL_LABEL[v] || v;
+
+/* ---------------- 状态 ---------------- */
+const state = {
+  q: '', model: '', lic: '', decade: '', rankRange: 'all',
+  sortKey: 'rank', sortAsc: true, page: 1, perPage: 25,
+};
+
+/* ---------------- 工具 ---------------- */
+const $ = s => document.querySelector(s);
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ---------------- 筛选下拉 ---------------- */
+const RANK_OPTS = () => [['all', t('all')], ['10', t('top10')], ['50', t('top50')], ['100', t('top100')], ['101', t('other')]];
+
+function buildFilterBar() {
+  const row = $('#filter-row'); row.innerHTML = '';
+  const groups = [
+    { key: 'model', title: t('fModel'),
+      items: [...new Set(RECORDS.map(r => r._primary))].filter(Boolean)
+        .map(v => ({ v, label: modelLabel(v), cnt: RECORDS.filter(r => r._primary === v).length }))
+        .sort((a, b) => b.cnt - a.cnt) },
+    { key: 'lic', title: t('fLicense'),
+      items: ['oss', 'com', 'both', 'other', 'na']
+        .map(v => ({ v, label: licLabel(v), cnt: RECORDS.filter(r => r._lic === v).length }))
+        .filter(x => x.cnt > 0) },
+    { key: 'decade', title: t('fDecade'),
+      items: [...new Set(RECORDS.map(r => r._decade))].sort()
+        .map(v => ({ v, label: v || t('unkDecade'), cnt: RECORDS.filter(r => r._decade === v).length })) },
+    { key: 'rankRange', title: t('fRank'),
+      items: RANK_OPTS().slice(1).map(([v, label]) => ({
+        v, label,
+        cnt: v === '101' ? RECORDS.filter(r => r.rank > 100).length : RECORDS.filter(r => r.rank <= +v).length
+      })) },
+  ];
+  groups.forEach(g => {
+    const wrap = el('div', 'filter-select');
+    const sel = el('select');
+    const allOpt = el('option', null, esc(t('selAll')(g.title)));
+    allOpt.value = '';
+    sel.append(allOpt);
+    g.items.forEach(it => {
+      const o = el('option', null, `${esc(it.label)} (${it.cnt})`);
+      o.value = it.v;
+      sel.append(o);
+    });
+    sel.value = g.key === 'rankRange' ? (state.rankRange === 'all' ? '' : state.rankRange) : state[g.key];
+    sel.onchange = () => {
+      if (g.key === 'rankRange') state.rankRange = sel.value || 'all';
+      else state[g.key] = sel.value;
+      state.page = 1;
+      render();
+    };
+    wrap.append(sel);
+    row.append(wrap);
+  });
+}
+
+function renderChips() {
+  const box = $('#chips'); box.innerHTML = '';
+  const active = [];
+  if (state.model) active.push({ key: 'model', label: `${t('fModel')}: ${modelLabel(state.model)}` });
+  if (state.lic) active.push({ key: 'lic', label: `${t('fLicense')}: ${licLabel(state.lic)}` });
+  if (state.decade !== '') active.push({ key: 'decade', label: `${t('fDecade')}: ${state.decade || t('unkDecade')}` });
+  if (state.rankRange !== 'all') {
+    const opt = RANK_OPTS().find(([v]) => v === state.rankRange);
+    active.push({ key: 'rankRange', label: `${t('fRank')}: ${opt ? opt[1] : state.rankRange}` });
+  }
+  active.forEach(f => {
+    const chip = el('span', 'chip', `${esc(f.label)}<span class="x">×</span>`);
+    chip.querySelector('.x').onclick = () => {
+      if (f.key === 'rankRange') state.rankRange = 'all'; else state[f.key] = '';
+      state.page = 1;
+      buildFilterBar(); render();
+    };
+    box.append(chip);
+  });
+  if (active.length) {
+    const clr = el('span', 'chip clear-all', esc(t('clear')));
+    clr.onclick = () => {
+      state.model = state.lic = state.decade = ''; state.rankRange = 'all'; state.page = 1;
+      buildFilterBar(); render();
+    };
+    box.append(clr);
+  }
+}
+
+/* ---------------- 过滤 + 排序 ---------------- */
+function getFiltered() {
+  let arr = RECORDS;
+  const q = state.q.trim().toLowerCase();
+  if (q) arr = arr.filter(r => r._search.includes(q));
+  if (state.model) arr = arr.filter(r => r._primary === state.model);
+  if (state.lic) arr = arr.filter(r => r._lic === state.lic);
+  if (state.decade !== '') arr = arr.filter(r => r._decade === state.decade);
+  if (state.rankRange !== 'all') {
+    const lim = +state.rankRange;
+    arr = lim === 101 ? arr.filter(r => r.rank > 100) : arr.filter(r => r.rank <= lim);
+  }
+  const k = state.sortKey, dir = state.sortAsc ? 1 : -1;
+  return [...arr].sort((a, b) => {
+    let va, vb;
+    switch (k) {
+      case 'rank': va = a.rank; vb = b.rank; break;
+      case 'name': va = a.dbms.toLowerCase(); vb = b.dbms.toLowerCase(); break;
+      case 'desc': va = F(a, 'description'); vb = F(b, 'description'); break;
+      case 'model': va = a._primary; vb = b._primary; break;
+      case 'developer': va = FD(a).toLowerCase(); vb = FD(b).toLowerCase(); break;
+      case 'release': va = +((a.initial_release.match(/\d{4}/) || [9999])[0]); vb = +((b.initial_release.match(/\d{4}/) || [9999])[0]); break;
+      case 'license': va = a._lic; vb = b._lic; break;
+    }
+    return (va < vb ? -1 : va > vb ? 1 : 0) * dir || (a.rank - b.rank);
+  });
+}
+
+/* ---------------- 渲染 ---------------- */
+function render() {
+  const arr = getFiltered();
+  const oss = arr.filter(r => r._lic === 'oss').length;
+  const com = arr.filter(r => r._lic === 'com').length;
+  $('#stats').innerHTML = '';
+  [[t('stTotal'), RECORDS.length], [t('stShown'), arr.length], [t('stOss'), oss], [t('stCom'), com]].forEach(([l, n]) => {
+    $('#stats').append(el('div', 'stat-card', `<div class="num">${n}</div><div class="lbl">${esc(l)}</div>`));
+  });
+  renderCharts(arr);
+  renderTable(arr);
+  renderChips();
+  $('#subtitle').textContent = I18N[lang].subtitle(DATA.ranking_month, RECORDS.length);
+}
+
+function renderCharts(arr) {
+  const cnt = {};
+  arr.forEach(r => { if (r._primary) cnt[r._primary] = (cnt[r._primary] || 0) + 1; });
+  const top = Object.entries(cnt).sort((a, b) => b[1] - a[1]).slice(0, 10);
+  const max = top.length ? top[0][1] : 1;
+  const cm = $('#chart-model'); cm.innerHTML = '';
+  top.forEach(([m, n]) => {
+    const row = el('div', 'bar-row',
+      `<div class="bar-label" title="${esc(m)}">${esc(modelLabel(m))}</div>
+       <div class="bar-track"><div class="bar-fill" style="width:${(n / max * 100).toFixed(1)}%"></div></div>
+       <div class="bar-val">${n}</div>`);
+    row.querySelector('.bar-fill').onclick = () => {
+      state.model = state.model === m ? '' : m; state.page = 1; buildFilterBar(); render();
+    };
+    cm.append(row);
+  });
+
+  const lc = { oss: 0, com: 0, both: 0, other: 0, na: 0 };
+  arr.forEach(r => lc[r._lic]++);
+  const total = arr.length || 1;
+  const colors = { oss: '#059669', com: '#d97706', both: '#7c3aed', other: '#64748b', na: '#cbd5e1' };
+  const svg = $('#donut'); svg.innerHTML = '';
+  let offset = 25;
+  ['oss', 'com', 'both', 'other', 'na'].forEach(k => {
+    if (!lc[k]) return;
+    const pct = lc[k] / total * 100;
+    const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    c.setAttribute('cx', 21); c.setAttribute('cy', 21); c.setAttribute('r', 15.915);
+    c.setAttribute('fill', 'transparent'); c.setAttribute('stroke', colors[k]); c.setAttribute('stroke-width', 6);
+    c.setAttribute('stroke-dasharray', `${pct} ${100 - pct}`); c.setAttribute('stroke-dashoffset', offset);
+    svg.append(c);
+    offset -= pct;
+  });
+  const legend = $('#donut-legend'); legend.innerHTML = '';
+  ['oss', 'com', 'both', 'other', 'na'].forEach(k => {
+    if (!lc[k]) return;
+    const item = el('div', 'item', `<span class="dot" style="background:${colors[k]}"></span>${esc(licLabel(k))} · ${lc[k]}`);
+    item.onclick = () => { state.lic = state.lic === k ? '' : k; state.page = 1; buildFilterBar(); render(); };
+    legend.append(item);
+  });
+}
+
+const COLS = [
+  { k: 'rank', label: () => t('colRank'), w: '56px' },
+  { k: 'name', label: () => t('colName'), w: '160px' },
+  { k: 'desc', label: () => t('colDesc') },
+  { k: 'model', label: () => t('colModel'), w: '180px' },
+  { k: 'developer', label: () => t('colDeveloper'), w: '130px' },
+  { k: 'release', label: () => t('colRelease'), w: '130px' },
+  { k: 'license', label: () => t('colLicense'), w: '64px' },
+];
+
+function renderTable(arr) {
+  const tr = $('#thead-row'); tr.innerHTML = '';
+  COLS.forEach(c => {
+    const th = el('th', null, esc(c.label()) + (state.sortKey === c.k ? `<span class="arrow">${state.sortAsc ? '▲' : '▼'}</span>` : ''));
+    if (c.w) th.style.width = c.w;
+    th.onclick = () => {
+      if (state.sortKey === c.k) state.sortAsc = !state.sortAsc;
+      else { state.sortKey = c.k; state.sortAsc = true; }
+      render();
+    };
+    tr.append(th);
+  });
+
+  const totalPages = Math.max(1, Math.ceil(arr.length / state.perPage));
+  if (state.page > totalPages) state.page = totalPages;
+  const start = (state.page - 1) * state.perPage;
+  const page = arr.slice(start, start + state.perPage);
+
+  const tb = $('#tbody'); tb.innerHTML = '';
+  if (!page.length) tb.innerHTML = `<tr><td colspan="7" class="no-result">${esc(t('noResult'))}</td></tr>`;
+
+  page.forEach(r => {
+    const tr = el('tr');
+    const models = F(r, 'database_model').split(/[，,]/).map(s => s.trim()).filter(Boolean)
+      .map(m => `<span class="tag">${esc(m)}</span>`).join('');
+    const rel = [r.initial_release, r.current_release].filter(Boolean).join(' / ') || '<span class="muted">-</span>';
+    const desc = F(r, 'description');
+    const nameHtml = r.website
+      ? `<a class="dbms-name" href="${esc(r.website)}" target="_blank" rel="noopener" title="${esc(r.website)}">${esc(r.dbms)}<span class="ext">↗</span></a>`
+      : `<span class="dbms-plain" title="${esc(t('noWebsite'))}">${esc(r.dbms)}</span>`;
+    const licText = F(r, 'license');
+    // 悬浮文案：分类名 + 原始许可证文本（原文若与分类名不同则一并展示，覆盖 13 条非标准长文本许可证）
+    const licTitle = licText && licText !== licLabel(r._lic) ? `${licLabel(r._lic)} · ${licText}` : licLabel(r._lic);
+    const licHtml = `<span class="lic-icon lic-${r._lic}" title="${esc(licTitle)}">${LIC_ICON[r._lic]}</span>`;
+    tr.innerHTML = `
+      <td><span class="rank-badge ${r.rank <= 10 ? 'top10' : ''}">${r.rank}</span></td>
+      <td>${nameHtml}</td>
+      <td class="desc-cell">${desc ? esc(desc) : '<span class="muted">-</span>'}</td>
+      <td>${models}</td>
+      <td>${esc(FD(r)) || '<span class="muted">-</span>'}</td>
+      <td class="muted">${rel}</td>
+      <td>${licHtml}</td>`;
+    tr.querySelectorAll('.tag').forEach(tag => {
+      tag.onclick = () => { state.model = r._primary; state.page = 1; buildFilterBar(); render(); };
+    });
+    tb.append(tr);
+  });
+
+  const pg = $('#pagination'); pg.innerHTML = '';
+  pg.append(el('span', 'info', I18N[lang].pageInfo(arr.length, RECORDS.length)));
+  const btn = (label, p, dis, act) => {
+    const b = el('button', 'btn' + (act ? ' active' : ''), label);
+    b.disabled = dis; b.onclick = () => { state.page = p; render(); };
+    return b;
+  };
+  pg.append(btn('«', 1, state.page === 1), btn('‹', state.page - 1, state.page === 1));
+  const win = 2;
+  for (let p = Math.max(1, state.page - win); p <= Math.min(totalPages, state.page + win); p++)
+    pg.append(btn(p, p, false, p === state.page));
+  pg.append(btn('›', state.page + 1, state.page === totalPages), btn('»', totalPages, state.page === totalPages));
+  const sel = el('select');
+  [10, 25, 50, 100].forEach(n => { const o = el('option', null, `${t('perPage')} ${n}`); o.value = n; sel.append(o); });
+  sel.value = state.perPage;
+  sel.onchange = () => { state.perPage = +sel.value; state.page = 1; render(); };
+  pg.append(sel);
+}
+
+/* ---------------- 事件与初始化 ---------------- */
+let debounce;
+$('#search').oninput = e => { clearTimeout(debounce); debounce = setTimeout(() => { state.q = e.target.value; state.page = 1; render(); }, 200); };
+
+function applyLang() {
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  $('#btn-lang').textContent = lang === 'zh' ? 'EN' : '中文';
+  document.querySelectorAll('[data-i18n]').forEach(e => { const v = t(e.dataset.i18n); if (typeof v === 'string') e.textContent = v; });
+  document.querySelectorAll('[data-i18n-ph]').forEach(e => e.placeholder = t(e.dataset.i18nPh));
+  rebuildModelLabels();
+  buildFilterBar();
+  render();
+}
+$('#btn-lang').onclick = () => { lang = lang === 'zh' ? 'en' : 'zh'; localStorage.setItem('dbe-lang', lang); applyLang(); };
+
+const themeBtn = $('#btn-theme');
+const setTheme = th => { document.documentElement.dataset.theme = th; themeBtn.textContent = th === 'dark' ? '☀️' : '🌙'; localStorage.setItem('dbe-theme', th); };
+themeBtn.onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
+setTheme(localStorage.getItem('dbe-theme') || 'light');
+
+applyLang();
+</script>
+</body>
+</html>
