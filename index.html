@@ -24,6 +24,7 @@
   header h1 .sub { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 8px; }
   .header-right { margin-left: auto; display: flex; gap: 8px; }
   .btn { border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 13px; white-space: nowrap; }
+  a.btn { text-decoration: none; display: inline-flex; align-items: center; }
   .btn:hover { border-color: var(--primary); color: var(--primary); }
   .btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
@@ -121,6 +122,7 @@
 <header>
   <h1>🗄️ <span data-i18n="title">DB-Engines 数据库分析</span><span class="sub" id="subtitle"></span></h1>
   <div class="header-right">
+    <a class="btn" href="https://www.cloudproduct.top/" target="_blank" rel="noopener" data-i18n="home">🏠 首页</a>
     <button class="btn" id="btn-lang">EN</button>
     <button class="btn" id="btn-theme" title="主题">🌙</button>
   </div>
@@ -178,6 +180,7 @@ const I18N = {
     pageInfo: (shown, total) => `显示 ${shown} / ${total} 条`,
     perPage: '每页',
     unkDecade: '未知', noWebsite: '无官网链接',
+    home: '🏠 首页',
   },
   en: {
     title: 'Database Selection & Analysis',
@@ -195,6 +198,7 @@ const I18N = {
     pageInfo: (shown, total) => `Showing ${shown} / ${total}`,
     perPage: 'Per page',
     unkDecade: 'Unknown', noWebsite: 'No website',
+    home: '🏠 Home',
   }
 };
 let lang = localStorage.getItem('dbe-lang') || 'en';
