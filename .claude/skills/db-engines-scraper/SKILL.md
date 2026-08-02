@@ -130,6 +130,7 @@ python scripts/translate_range.py --start 0 --end 75 --merge batch-0-75.json
 - 可视化：统计卡、模型 Top10 条形图、许可证环形图（SVG 手绘，无图表库），随筛选联动
 - 表格：6 列排序、Top10 高亮、点击行名弹详情卡（含官网/DB-Engines 链接）、分页
 - 中英文一键切换（界面文案 + 数据字段同步），暗色主题，localStorage 持久化偏好
+- 顶栏右侧固定返回主站链接（https://www.cloudproduct.top/，`target="_blank"` 新标签打开，i18n 词条 `home`）
 - 导出当前筛选结果为 CSV（带 BOM，Excel 不乱码）
 
 **注意：**
