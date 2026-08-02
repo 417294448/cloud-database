@@ -103,7 +103,15 @@ python scripts/build_html.py -d database-info.json -t assets/index.template.html
 
 `database_model_cn` 和 `license_cn` 由 `fix_data.py` 用枚举表预填，**不需要翻译接口**。只有 `description_cn` 和 `developer_cn` 需要逐条翻译。
 
-434 条数据建议**分区间并行**处理（每区间 75 条，6 个子代理）：
+434 条数据建议**分区间并行**处理（每区间 75 条，6 个子代理）。如果不需要并行，也可以用 `scripts/translate_cn.py` 按 20 条/批顺序推进（进度保存在 `.translate-progress.json`），作为 `translate_range.py` 的替代方案：
+
+```bash
+python scripts/translate_cn.py --extract     # 输出当前批次待翻译内容
+# 翻译后写入 translations-batch.json
+python scripts/translate_cn.py --merge translations-batch.json
+```
+
+分区间并行方案（推荐）：
 
 ```bash
 # 每个子代理执行（以区间 [0,75) 为例）：
@@ -155,3 +163,17 @@ python scripts/translate_range.py --start 0 --end 75 --merge batch-0-75.json
 
 - `searchxml`（并列 387 段）内页长期返回异常/无 Editorial 表格，字段留空属预期，反复重试无意义。
 - 排名页"单模型简称"有 18 种（`Key-value`/`Time Series`/`Document`/`Graph` 等），与 Multi-model 悬浮框里的全称不一致——`fix_data.py` 的 `MODEL_NORMALIZE` 负责统一，枚举表 `MODEL_CN` 同时覆盖简称与全称，新增模型类型时两处都要加。
+
+## 维护本 Skill（变更后必须同步）
+
+本 SKILL.md 是 DB-Engines 流水线的**唯一主要来源**。任何流程、规则、脚本或验收清单的变更都应先改这里，然后**立即执行同步**，确保 `.trae/rules/db-engines-pipeline.md` 和项目根目录脚本与 skill 保持一致。不同步会导致 Trae 读取的 rule 和实际脚本行为不一致。
+
+```bash
+python sync_skill_to_rule.py
+```
+
+该脚本会：
+1. 将 `scripts/` 下的 Python 脚本复制到项目根目录，保持根目录与 skill 内脚本一致；
+2. 将 SKILL.md 转换为 rule 格式（路径适配为根目录、追加绝对路径表）并写入 `.trae/rules/db-engines-pipeline.md`。
+
+**建议**：提交 skill 变更前，把 `python sync_skill_to_rule.py` 作为必经步骤；如果希望完全自动化，可在本地仓库配置 `pre-commit` 或 CI 流程，在提交前自动运行该脚本。
