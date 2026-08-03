@@ -47,6 +47,17 @@ def sync_scripts(repo: Path, skill_dir: Path):
     print(f"[sync] copied {len(copied)} scripts to repo root: {', '.join(copied)}")
 
 
+def sync_assets(repo: Path, skill_dir: Path):
+    """把 skill/assets/index.template.html 复制到项目根目录。"""
+    src = skill_dir / "assets" / "index.template.html"
+    dst = repo / "index.template.html"
+    if src.exists():
+        shutil.copy2(src, dst)
+        print(f"[sync] copied asset to repo root: {dst.name}")
+    else:
+        print(f"[sync] warning: asset not found: {src}")
+
+
 def make_script_table(repo: Path) -> str:
     """生成 rule 专用的脚本绝对路径表。"""
     lines = [
@@ -119,6 +130,7 @@ def main():
         raise FileNotFoundError(f"skill md not found: {skill_md}")
 
     sync_scripts(repo, skill_dir)
+    sync_assets(repo, skill_dir)
 
     skill_text = skill_md.read_text(encoding="utf-8")
     rule_text = convert_skill_to_rule(skill_text, repo)

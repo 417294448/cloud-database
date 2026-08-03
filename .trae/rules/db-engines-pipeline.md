@@ -192,6 +192,7 @@ python sync_skill_to_rule.py
 
 该脚本会：
 1. 将 `scripts/` 下的 Python 脚本复制到项目根目录，保持根目录与 skill 内脚本一致；
-2. 将 SKILL.md 转换为 rule 格式（路径适配为根目录、追加绝对路径表）并写入 `.trae/rules/db-engines-pipeline.md`。
+2. 将 `index.template.html` 复制到项目根目录，保持页面模板一致；
+3. 将 SKILL.md 转换为 rule 格式（路径适配为根目录、追加绝对路径表）并写入 `.trae/rules/db-engines-pipeline.md`。
 
 **建议**：提交 skill 变更前，把 `python sync_skill_to_rule.py` 作为必经步骤；如果希望完全自动化，可在本地仓库配置 `pre-commit` 或 CI 流程，在提交前自动运行该脚本。
