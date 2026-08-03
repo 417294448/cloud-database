@@ -34,6 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from scrape_db_engines import RANKING_URL, fetch, parse_ranking, parse_detail, TARGET_FIELDS  # noqa: E402
 from translate_range import translate_model, LICENSE_CN  # noqa: E402
 from fix_data import clean_model_str  # noqa: E402
+from diff_utils import write_diff_report  # noqa: E402
 
 DB_FILE = "database-info.json"
 PENDING_FILE = "pending-translations.json"
@@ -168,6 +169,7 @@ def cmd_apply(delay):
     }
     save_db(DB_FILE, output)
     print(f"\n已更新 {DB_FILE}：{len(all_records)} 条（新增 {len(new_records)}，移除 {len(removed)}）")
+    write_diff_report(output, old_data)
 
     if new_records:
         new_urls = {r["detail_url"] for r in new_records}

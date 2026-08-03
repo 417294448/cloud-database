@@ -19,6 +19,7 @@ import sys
 import time
 import unicodedata
 import warnings
+from pathlib import Path
 
 # Windows 终端默认 GBK 编码，打印中文/特殊字符会乱码或报错，统一切换为 UTF-8
 for _stream in (sys.stdout, sys.stderr):
@@ -27,6 +28,10 @@ for _stream in (sys.stdout, sys.stderr):
 
 import requests
 from bs4 import BeautifulSoup
+
+# 允许从任意目录运行时仍能 import 同目录的 diff_utils 模块
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from diff_utils import write_diff_report  # noqa: E402
 
 RANKING_URL = "https://db-engines.com/en/ranking"
 BASE_URL = "https://db-engines.com"
@@ -281,10 +286,18 @@ def main():
         "count": len(records),
         "databases": records,
     }
+
+    # 写文件前保留旧数据，用于生成 diff 报告
+    old_data = None
+    if Path(args.output).exists():
+        with open(args.output, encoding="utf-8") as f:
+            old_data = json.load(f)
+
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(output, f, ensure_ascii=False, indent=2)
 
     print(f"完成！已保存 {len(records)} 条记录到 {args.output}")
+    write_diff_report(output, old_data)
 
 
 if __name__ == "__main__":
