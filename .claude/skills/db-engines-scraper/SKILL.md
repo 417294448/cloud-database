@@ -148,6 +148,11 @@ python scripts/translate_range.py --start 0 --end 75 --merge batch-0-75.json
 - 若用户想改页面样式/功能，改的是**模板文件**，不是生成的 index.html（否则下次构建会被覆盖）；
 - 页面验证：有 node 时用 `node --check` 校验提取出的 JS，无 node 就检查数据块能被 json.loads 解析、无 `http(s)://` 外部资源引用。
 
+**i18n 注意事项（修改模板时必读）：**
+
+- `<title>` 标签是**静态 HTML**，无法挂 `data-i18n` 属性，必须在 `applyLang()` 里显式 `document.title = t('docTitle')` 才能随语言切换。`I18N.zh/en` 各有 `docTitle` 词条，与页面顶部 H1 的 `title` 词条（仅"数据库选型与分析"）分开维护——浏览器标签页标题需带"数据来源 DB-Engines"后缀以便识别，H1 标题保持简短；
+- 新增任何界面文案时，同步检查三处：HTML 元素（加 `data-i18n="xxx"`）、`I18N.zh` 词条、`I18N.en` 词条；仅改 HTML 或仅改词条都会导致切换后某语言显示旧文案。
+
 ## 验收清单（全部完成后向用户汇报前必做）
 
 1. `count` 等于排名页声明的系统数（当前 434）；
