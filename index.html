@@ -166,6 +166,7 @@ const RECORDS = DATA.databases;
 const I18N = {
   zh: {
     title: '数据库选型与分析',
+    docTitle: '数据库选型与分析 · 数据来源 DB-Engines',
     subtitle: (m, n) => `数据来源：DB-Engines（${m} · 共 ${n} 个系统）`,
     searchPh: '搜索名称 / 简介 / 开发方（支持中英文）…',
     chartModel: '数据库模型分布（Top 10，点击条形可筛选）',
@@ -184,6 +185,7 @@ const I18N = {
   },
   en: {
     title: 'Database Selection & Analysis',
+    docTitle: 'Database Selection & Analysis · Data from DB-Engines',
     subtitle: (m, n) => `Data source: DB-Engines (${m} · ${n} systems)`,
     searchPh: 'Search name / description / developer (EN & 中文)…',
     chartModel: 'Database Models (Top 10, click bar to filter)',
@@ -504,6 +506,7 @@ $('#search').oninput = e => { clearTimeout(debounce); debounce = setTimeout(() =
 
 function applyLang() {
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  document.title = t('docTitle');
   $('#btn-lang').textContent = lang === 'zh' ? 'EN' : '中文';
   document.querySelectorAll('[data-i18n]').forEach(e => { const v = t(e.dataset.i18n); if (typeof v === 'string') e.textContent = v; });
   document.querySelectorAll('[data-i18n-ph]').forEach(e => e.placeholder = t(e.dataset.i18nPh));
