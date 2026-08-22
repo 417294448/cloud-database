@@ -4,11 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>数据库选型与分析 · 数据来源 DB-Engines</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f4f6fa; --card: #fff; --border: #e2e8f0; --text: #1a202c; --muted: #64748b;
     --primary: #2563eb; --primary-light: #dbeafe; --accent: #059669; --warn: #d97706;
     --shadow: 0 1px 3px rgba(0,0,0,.08);
+    /* 字体对齐 index-demo：Sora 标题 / Manrope 正文 / JetBrains Mono 数字与代码 */
+    --font-display: 'Sora', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Cascadia Code', Consolas, monospace;
+    --font-sans: 'Manrope', 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   }
   [data-theme="dark"] {
     --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #e2e8f0; --muted: #94a3b8;
@@ -16,15 +23,20 @@
     --shadow: 0 1px 3px rgba(0,0,0,.4);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+  body { font-family: var(--font-sans); background: var(--bg); color: var(--text); font-size: 14px; }
+
+  /* 通用图标：24×24 线性几何 SVG，currentColor 继承父级颜色 */
+  .ic { width: 1em; height: 1em; display: inline-block; vertical-align: -0.14em; flex-shrink: 0; }
 
   /* ---------- 顶栏 ---------- */
   header { background: var(--card); border-bottom: 1px solid var(--border); padding: 14px 24px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow); }
-  header h1 { font-size: 18px; font-weight: 700; white-space: nowrap; }
+  header h1 { font-family: var(--font-display); font-size: 19px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; display: flex; align-items: center; gap: 9px; }
+  header h1 .logo-ic { font-size: 22px; color: var(--primary); }
   header h1 .sub { font-weight: 400; color: var(--muted); font-size: 12px; margin-left: 8px; }
   .header-right { margin-left: auto; display: flex; gap: 8px; }
-  .btn { border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 6px; padding: 6px 12px; cursor: pointer; font-size: 13px; white-space: nowrap; }
-  a.btn { text-decoration: none; display: inline-flex; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 7px; padding: 6px 12px; cursor: pointer; font-family: var(--font-sans); font-weight: 600; font-size: 13px; white-space: nowrap; transition: all .15s; }
+  a.btn { text-decoration: none; }
+  .btn .ic { font-size: 14px; }
   .btn:hover { border-color: var(--primary); color: var(--primary); }
   .btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
 
@@ -32,64 +44,66 @@
 
   /* ---------- 统计卡 ---------- */
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 14px; }
-  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; }
-  .stat-card .num { font-size: 24px; font-weight: 700; color: var(--primary); }
-  .stat-card .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; }
+  .stat-card .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 24px; font-weight: 600; letter-spacing: -0.01em; color: var(--primary); }
+  .stat-card .lbl { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 2px; }
 
   /* ---------- 图表 ---------- */
   .charts { display: grid; grid-template-columns: 1.6fr 1fr; gap: 12px; margin-bottom: 14px; }
-  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
-  .chart-card h3 { font-size: 13px; margin-bottom: 10px; color: var(--muted); font-weight: 600; }
+  .chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .chart-card h3 { font-family: var(--font-display); font-size: 13.5px; margin-bottom: 10px; color: var(--text); font-weight: 600; letter-spacing: 0.01em; }
   .bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; font-size: 12px; }
   .bar-row .bar-label { width: 130px; text-align: right; color: var(--muted); flex-shrink: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .bar-row .bar-track { flex: 1; background: var(--bg); border-radius: 3px; height: 16px; }
-  .bar-row .bar-fill { height: 100%; border-radius: 3px; background: var(--primary); min-width: 2px; transition: width .3s; cursor: pointer; }
+  .bar-row .bar-track { flex: 1; background: var(--bg); border-radius: 4px; height: 16px; }
+  .bar-row .bar-fill { height: 100%; border-radius: 4px; background: var(--primary); min-width: 2px; transition: width .3s; cursor: pointer; }
   .bar-row .bar-fill:hover { opacity: .8; }
-  .bar-row .bar-val { width: 36px; color: var(--muted); flex-shrink: 0; }
+  .bar-row .bar-val { width: 36px; color: var(--muted); flex-shrink: 0; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
   .donut-wrap { display: flex; align-items: center; gap: 18px; }
-  .donut-legend { font-size: 13px; }
+  .donut-legend { font-size: 13px; font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
   .donut-legend .item { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; cursor: pointer; }
   .donut-legend .item:hover { color: var(--primary); }
   .donut-legend .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
   /* ---------- 工具条：搜索 + 筛选下拉 ---------- */
-  .toolbar { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; }
+  .toolbar { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px; }
   .toolbar-row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
   .search-box { flex: 1; min-width: 220px; position: relative; }
-  .search-box input { width: 100%; padding: 8px 12px 8px 34px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 14px; }
+  .search-box input { width: 100%; padding: 8px 12px 8px 34px; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 13.5px; transition: border-color .15s; }
   .search-box input:focus { outline: none; border-color: var(--primary); }
-  .search-box::before { content: "🔍"; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; opacity: .5; }
+  .search-box input::placeholder { color: var(--muted); opacity: .7; }
+  .search-box > .ic { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--muted); opacity: .8; pointer-events: none; }
   .filter-select { position: relative; }
-  .filter-select select { padding: 8px 28px 8px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); font-size: 13px; cursor: pointer; appearance: none; max-width: 200px; }
-  .filter-select::after { content: "▾"; position: absolute; right: 9px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--muted); font-size: 11px; }
+  .filter-select select { padding: 8px 28px 8px 10px; border: 1px solid var(--border); border-radius: 7px; background: var(--bg); color: var(--text); font-family: var(--font-sans); font-size: 13px; cursor: pointer; appearance: none; max-width: 200px; transition: border-color .15s; }
+  .filter-select .sel-chev { position: absolute; right: 9px; top: 50%; transform: translateY(-50%); pointer-events: none; color: var(--muted); font-size: 13px; }
   .filter-select select:focus { outline: none; border-color: var(--primary); }
   /* 已选筛选条件 chips */
   .chips { display: flex; gap: 6px; flex-wrap: wrap; }
   .chips:empty { display: none; }
-  .chip { display: inline-flex; align-items: center; gap: 5px; background: var(--primary-light); color: var(--primary); border-radius: 12px; padding: 3px 6px 3px 10px; font-size: 12px; cursor: default; }
-  .chip .x { cursor: pointer; font-weight: 700; opacity: .6; padding: 0 3px; }
+  .chip { display: inline-flex; align-items: center; gap: 5px; background: var(--primary-light); color: var(--primary); border-radius: 999px; padding: 3px 6px 3px 10px; font-size: 12px; cursor: default; }
+  .chip .x { cursor: pointer; opacity: .6; padding: 0 2px; display: inline-flex; align-items: center; font-size: 11px; }
   .chip .x:hover { opacity: 1; }
-  .chip.clear-all { cursor: pointer; background: transparent; border: 1px dashed var(--border); color: var(--muted); }
+  .chip.clear-all { cursor: pointer; background: transparent; border: 1px dashed var(--border); color: var(--muted); transition: all .15s; }
+  .chip.clear-all:hover { color: var(--warn); border-color: var(--warn); }
 
   /* ---------- 表格 ---------- */
-  .table-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .table-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
   .table-scroll { overflow-x: auto; }
   table { width: 100%; table-layout: fixed; border-collapse: collapse; font-size: 13px; }
-  thead th { background: var(--bg); padding: 10px 12px; text-align: left; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
+  thead th { background: var(--bg); padding: 10px 12px; text-align: left; font-size: 12px; letter-spacing: 0.02em; font-weight: 600; color: var(--muted); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; transition: color .15s; }
   thead th:hover { color: var(--primary); }
-  thead th .arrow { font-size: 10px; margin-left: 3px; }
+  thead th .arrow { font-size: 11px; margin-left: 3px; color: var(--primary); }
   tbody td { padding: 9px 12px; border-bottom: 1px solid var(--border); vertical-align: top; overflow-wrap: anywhere; word-break: break-word; }
   tbody tr:hover { background: var(--bg); }
   tbody tr:last-child td { border-bottom: none; }
-  .rank-badge { display: inline-block; min-width: 34px; text-align: center; font-weight: 700; padding: 2px 6px; border-radius: 4px; background: var(--bg); color: var(--muted); white-space: nowrap; }
+  .rank-badge { display: inline-block; min-width: 34px; text-align: center; font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-weight: 600; padding: 2px 6px; border-radius: 5px; background: var(--bg); color: var(--muted); white-space: nowrap; }
   .rank-badge.top10 { background: #fef3c7; color: #92400e; }
   [data-theme="dark"] .rank-badge.top10 { background: #451a03; color: #fbbf24; }
   .dbms-name { font-weight: 600; color: var(--primary); text-decoration: none; }
   .dbms-name:hover { text-decoration: underline; }
-  .dbms-name .ext { font-size: 10px; opacity: .55; margin-left: 2px; }
+  .dbms-name .ext { font-size: 11px; opacity: .55; margin-left: 3px; }
   .dbms-plain { font-weight: 600; color: var(--muted); }
-  .desc-cell { color: var(--muted); font-size: 12px; max-width: 380px; }
-  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 10px; background: var(--primary-light); color: var(--primary); margin: 1px 2px 1px 0; white-space: nowrap; cursor: pointer; }
+  .desc-cell { color: var(--muted); font-size: 12.5px; line-height: 1.6; max-width: 380px; }
+  .tag { display: inline-block; font-size: 11px; padding: 1px 7px; border-radius: 999px; background: var(--primary-light); color: var(--primary); margin: 1px 2px 1px 0; white-space: nowrap; cursor: pointer; transition: all .15s; }
   .tag:hover { background: var(--primary); color: #fff; }
   .lic-icon { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 6px; font-size: 15px; cursor: default; }
   .lic-icon.lic-oss { background: #d1fae5; color: #059669; }
@@ -105,9 +119,9 @@
   .muted { color: var(--muted); }
 
   .pagination { display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
-  .pagination .info { color: var(--muted); font-size: 13px; margin-right: auto; }
-  .pagination button { min-width: 32px; }
-  .pagination select { padding: 5px; border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--text); }
+  .pagination .info { color: var(--muted); font-family: var(--font-mono); font-variant-numeric: tabular-nums; font-size: 12px; margin-right: auto; }
+  .pagination button { min-width: 32px; font-family: var(--font-mono); }
+  .pagination select { padding: 5px; border: 1px solid var(--border); border-radius: 7px; background: var(--card); color: var(--text); font-family: var(--font-sans); font-size: 12.5px; }
 
   .no-result { text-align: center; padding: 48px; color: var(--muted); }
 
@@ -119,12 +133,37 @@
 </head>
 <body>
 
+<!-- ===== SVG 图标系统：24×24 viewBox，1.8px 描边，currentColor 继承，线性几何风格 ===== -->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <defs>
+    <symbol id="i-db" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5.5" rx="8" ry="2.8"/><path d="M4 5.5V18.5c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8V5.5"/><path d="M4 12c0 1.55 3.58 2.8 8 2.8s8-1.25 8-2.8"/></g></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6.5 9.5V20h11V9.5"/><path d="M10.5 20v-5h3v5"/></g></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.2"/><path d="M3.8 12h16.4"/><path d="M12 3.8c-4.8 4.9-4.8 11.5 0 16.4 4.8-4.9 4.8-11.5 0-16.4z"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4 6.5 6.5 0 0 0 20 14.5z"/></g></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.4M12 19.1v2.4M2.5 12h2.4M19.1 12h2.4M5.3 5.3l1.7 1.7M17 17l1.7 1.7M18.7 5.3 17 7M7 17l-1.7 1.7"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.4-4.4"/></g></symbol>
+    <symbol id="i-chev-down" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></g></symbol>
+    <symbol id="i-chev-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></g></symbol>
+    <symbol id="i-chev-first" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 6l-6 6 6 6"/><path d="M7 6v12"/></g></symbol>
+    <symbol id="i-chev-prev" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 6l-6 6 6 6"/></g></symbol>
+    <symbol id="i-chev-next" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l6 6-6 6"/></g></symbol>
+    <symbol id="i-chev-last" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 6l6 6-6 6"/><path d="M17 6v12"/></g></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6l12 12M18 6 6 18"/></g></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></g></symbol>
+    <symbol id="i-unlock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="11" width="13" height="8.5" rx="2"/><path d="M8.5 11V7.8a3.5 3.5 0 0 1 6.9-.8"/><circle cx="12" cy="15.2" r="1.1" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="11" width="13" height="8.5" rx="2"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/><circle cx="12" cy="15.2" r="1.1" fill="currentColor" stroke="none"/></g></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 20.5 8 12 12.5 3.5 8z"/><path d="m4.5 12.5 7.5 4 7.5-4"/><path d="m4.5 16.5 7.5 4 7.5-4"/></g></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 3.5H7a1.5 1.5 0 0 0-1.5 1.5v14A1.5 1.5 0 0 0 7 20.5h10a1.5 1.5 0 0 0 1.5-1.5V8.5z"/><path d="M13.5 3.5v5h5"/><path d="M9 13h6M9 16.5h4"/></g></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 12h12"/></g></symbol>
+  </defs>
+</svg>
+
 <header>
-  <h1>🗄️ <span data-i18n="title">DB-Engines 数据库分析</span><span class="sub" id="subtitle"></span></h1>
+  <h1><svg class="ic logo-ic"><use href="#i-db"/></svg><span data-i18n="title">DB-Engines 数据库分析</span><span class="sub" id="subtitle"></span></h1>
   <div class="header-right">
-    <a class="btn" href="https://www.cloudproduct.top/" target="_blank" rel="noopener" data-i18n="home">🏠 首页</a>
-    <button class="btn" id="btn-lang">EN</button>
-    <button class="btn" id="btn-theme" title="主题">🌙</button>
+    <a class="btn" href="https://www.cloudproduct.top/" target="_blank" rel="noopener"><svg class="ic"><use href="#i-home"/></svg><span data-i18n="home">首页</span></a>
+    <button class="btn" id="btn-lang"><svg class="ic"><use href="#i-globe"/></svg><span id="btn-lang-text">EN</span></button>
+    <button class="btn" id="btn-theme" title="主题"><svg class="ic"><use href="#i-moon"/></svg></button>
   </div>
 </header>
 
@@ -138,7 +177,7 @@
 
   <div class="toolbar">
     <div class="toolbar-row">
-      <div class="search-box"><input id="search" data-i18n-ph="searchPh" placeholder="搜索名称 / 简介 / 开发方（支持中英文）…"></div>
+      <div class="search-box"><svg class="ic"><use href="#i-search"/></svg><input id="search" data-i18n-ph="searchPh" placeholder="搜索名称 / 简介 / 开发方（支持中英文）…"></div>
     </div>
     <div class="toolbar-row" id="filter-row"></div>
     <div class="chips" id="chips"></div>
@@ -181,7 +220,7 @@ const I18N = {
     pageInfo: (shown, total) => `显示 ${shown} / ${total} 条`,
     perPage: '每页',
     unkDecade: '未知', noWebsite: '无官网链接',
-    home: '🏠 首页',
+    home: '首页',
   },
   en: {
     title: 'Database Selection & Analysis',
@@ -200,7 +239,7 @@ const I18N = {
     pageInfo: (shown, total) => `Showing ${shown} / ${total}`,
     perPage: 'Per page',
     unkDecade: 'Unknown', noWebsite: 'No website',
-    home: '🏠 Home',
+    home: 'Home',
   }
 };
 let lang = localStorage.getItem('dbe-lang') || 'en';
@@ -222,8 +261,8 @@ const licClass = lic => {
 const LIC_LABEL = { oss: '开源', com: '商业', both: '双许可', other: '其他', na: '未知' };
 const LIC_LABEL_EN = { oss: 'Open Source', com: 'Commercial', both: 'Dual', other: 'Other', na: 'N/A' };
 const licLabel = cls => (lang === 'zh' ? LIC_LABEL : LIC_LABEL_EN)[cls] || cls;
-// 许可证分类 -> 图标（常用许可证语义符号：🔓开源 🔒商业 🔀双许可 📄其他 ➖未知）
-const LIC_ICON = { oss: '🔓', com: '🔒', both: '🔀', other: '📄', na: '➖' };
+// 许可证分类 -> 线性 SVG 图标：unlock 开源 / lock 商业 / layers 双许可 / doc 其他 / minus 未知
+const LIC_ICON = { oss: 'unlock', com: 'lock', both: 'layers', other: 'doc', na: 'minus' };
 
 const decadeOf = r => {
   const m = (r.initial_release || '').match(/(19|20)\d{2}/);
@@ -262,6 +301,8 @@ const state = {
 const $ = s => document.querySelector(s);
 const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// 线性 SVG 图标引用（symbol 库见 body 顶部）
+const ic = n => `<svg class="ic" aria-hidden="true"><use href="#i-${n}"/></svg>`;
 
 /* ---------------- 筛选下拉 ---------------- */
 const RANK_OPTS = () => [['all', t('all')], ['10', t('top10')], ['50', t('top50')], ['100', t('top100')], ['101', t('other')]];
@@ -289,6 +330,7 @@ function buildFilterBar() {
   groups.forEach(g => {
     const wrap = el('div', 'filter-select');
     const sel = el('select');
+    wrap.insertAdjacentHTML('beforeend', ic('chev-down').replace('class="ic"', 'class="ic sel-chev"'));
     const allOpt = el('option', null, esc(t('selAll')(g.title)));
     allOpt.value = '';
     sel.append(allOpt);
@@ -320,7 +362,7 @@ function renderChips() {
     active.push({ key: 'rankRange', label: `${t('fRank')}: ${opt ? opt[1] : state.rankRange}` });
   }
   active.forEach(f => {
-    const chip = el('span', 'chip', `${esc(f.label)}<span class="x">×</span>`);
+    const chip = el('span', 'chip', `${esc(f.label)}<span class="x">${ic('close')}</span>`);
     chip.querySelector('.x').onclick = () => {
       if (f.key === 'rankRange') state.rankRange = 'all'; else state[f.key] = '';
       state.page = 1;
@@ -436,7 +478,7 @@ const COLS = [
 function renderTable(arr) {
   const tr = $('#thead-row'); tr.innerHTML = '';
   COLS.forEach(c => {
-    const th = el('th', null, esc(c.label()) + (state.sortKey === c.k ? `<span class="arrow">${state.sortAsc ? '▲' : '▼'}</span>` : ''));
+    const th = el('th', null, esc(c.label()) + (state.sortKey === c.k ? `<span class="arrow">${ic(state.sortAsc ? 'chev-up' : 'chev-down')}</span>` : ''));
     if (c.w) th.style.width = c.w;
     th.onclick = () => {
       if (state.sortKey === c.k) state.sortAsc = !state.sortAsc;
@@ -461,12 +503,12 @@ function renderTable(arr) {
     const rel = [r.initial_release, r.current_release].filter(Boolean).join(' / ') || '<span class="muted">-</span>';
     const desc = F(r, 'description');
     const nameHtml = r.website
-      ? `<a class="dbms-name" href="${esc(r.website)}" target="_blank" rel="noopener" title="${esc(r.website)}">${esc(r.dbms)}<span class="ext">↗</span></a>`
+      ? `<a class="dbms-name" href="${esc(r.website)}" target="_blank" rel="noopener" title="${esc(r.website)}">${esc(r.dbms)}<span class="ext">${ic('ext')}</span></a>`
       : `<span class="dbms-plain" title="${esc(t('noWebsite'))}">${esc(r.dbms)}</span>`;
     const licText = F(r, 'license');
     // 悬浮文案：分类名 + 原始许可证文本（原文若与分类名不同则一并展示，覆盖 13 条非标准长文本许可证）
     const licTitle = licText && licText !== licLabel(r._lic) ? `${licLabel(r._lic)} · ${licText}` : licLabel(r._lic);
-    const licHtml = `<span class="lic-icon lic-${r._lic}" title="${esc(licTitle)}">${LIC_ICON[r._lic]}</span>`;
+    const licHtml = `<span class="lic-icon lic-${r._lic}" title="${esc(licTitle)}">${ic(LIC_ICON[r._lic])}</span>`;
     tr.innerHTML = `
       <td><span class="rank-badge ${r.rank <= 10 ? 'top10' : ''}">${r.rank}</span></td>
       <td>${nameHtml}</td>
@@ -488,11 +530,11 @@ function renderTable(arr) {
     b.disabled = dis; b.onclick = () => { state.page = p; render(); };
     return b;
   };
-  pg.append(btn('«', 1, state.page === 1), btn('‹', state.page - 1, state.page === 1));
+  pg.append(btn(ic('chev-first'), 1, state.page === 1), btn(ic('chev-prev'), state.page - 1, state.page === 1));
   const win = 2;
   for (let p = Math.max(1, state.page - win); p <= Math.min(totalPages, state.page + win); p++)
     pg.append(btn(p, p, false, p === state.page));
-  pg.append(btn('›', state.page + 1, state.page === totalPages), btn('»', totalPages, state.page === totalPages));
+  pg.append(btn(ic('chev-next'), state.page + 1, state.page === totalPages), btn(ic('chev-last'), totalPages, state.page === totalPages));
   const sel = el('select');
   [10, 25, 50, 100].forEach(n => { const o = el('option', null, `${t('perPage')} ${n}`); o.value = n; sel.append(o); });
   sel.value = state.perPage;
@@ -507,7 +549,7 @@ $('#search').oninput = e => { clearTimeout(debounce); debounce = setTimeout(() =
 function applyLang() {
   document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
   document.title = t('docTitle');
-  $('#btn-lang').textContent = lang === 'zh' ? 'EN' : '中文';
+  $('#btn-lang-text').textContent = lang === 'zh' ? 'EN' : '中文';
   document.querySelectorAll('[data-i18n]').forEach(e => { const v = t(e.dataset.i18n); if (typeof v === 'string') e.textContent = v; });
   document.querySelectorAll('[data-i18n-ph]').forEach(e => e.placeholder = t(e.dataset.i18nPh));
   rebuildModelLabels();
@@ -517,7 +559,7 @@ function applyLang() {
 $('#btn-lang').onclick = () => { lang = lang === 'zh' ? 'en' : 'zh'; localStorage.setItem('dbe-lang', lang); applyLang(); };
 
 const themeBtn = $('#btn-theme');
-const setTheme = th => { document.documentElement.dataset.theme = th; themeBtn.textContent = th === 'dark' ? '☀️' : '🌙'; localStorage.setItem('dbe-theme', th); };
+const setTheme = th => { document.documentElement.dataset.theme = th; themeBtn.innerHTML = ic(th === 'dark' ? 'sun' : 'moon'); localStorage.setItem('dbe-theme', th); };
 themeBtn.onclick = () => setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');
 setTheme(localStorage.getItem('dbe-theme') || 'light');
 
