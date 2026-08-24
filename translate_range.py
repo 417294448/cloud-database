@@ -60,7 +60,11 @@ MODEL_CN = {
     "Columnar": "列式数据库",
     "Observability": "可观测性平台",
 }
-LICENSE_CN = {"commercial": "商业许可", "Open Source": "开源"}
+LICENSE_CN = {
+    "commercial": "商业许可",
+    "Open Source": "开源",
+    "Commercial/Proprietary engine with Open-source client SDK’s": "商业/专有引擎，客户端 SDK 开源",
+}
 
 
 def translate_model(s):
