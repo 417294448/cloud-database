@@ -6584,8 +6584,8 @@
     {
       "rank": 387,
       "dbms": "OriginChain",
-      "database_model": "Relational DBMS, Document store, Vector DBMS, Graph DBMS, Search engine",
-      "database_model_cn": "关系型数据库，文档型数据库，向量数据库，图数据库，搜索引擎",
+      "database_model": "Multi-model",
+      "database_model_cn": "多模型数据库",
       "detail_url": "https://db-engines.com/en/system/OriginChain",
       "description": "An AI-native, fully managed database. Ask questions in plain English, or use SQL, vector, full-text and graph search — all against one store, behind a single endpoint and key. Single-tenant and region-isolated.",
       "description_cn": "AI 原生的全托管数据库。可用自然语言提问，也可使用 SQL、向量、全文和图搜索——全部基于同一存储、通过单一端点和密钥访问。单租户且区域隔离。",

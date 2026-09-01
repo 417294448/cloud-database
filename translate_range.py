@@ -38,6 +38,7 @@ MODEL_CN = {
     "NoSQL DBMS": "NoSQL 数据库",
     "Columnar DBMS": "列式数据库",
     "Multi-Model DBMS": "多模型数据库",
+    "Multi-model": "多模型数据库",
     # 排名页单模型简称（站点对非 Multi-model 系统的缩写显示）
     "Relational": "关系型数据库",
     "Document": "文档型数据库",

@@ -44,6 +44,16 @@ MODEL_NORMALIZE = {
 VENDOR_SUFFIX = " Detailed vendor-provided information available"
 MAX_MODEL_LEN = 30  # 标准模型名最长 "Object oriented DBMS" = 20 字符，留余量
 
+# 已知标准模型名白名单（简称 + 全称 + Multi-model），用于剔除 infobox 混入的
+# 厂商营销文案。仅按长度过滤会漏掉短片段（OriginChain 案例：infobox 里的
+# "full-text and graph queries." 仅 27 字符，仍属营销文案而非模型名）。
+KNOWN_MODELS = (
+    set(MODEL_NORMALIZE.keys())
+    | set(MODEL_NORMALIZE.values())
+    | set(MODEL_CN.keys())
+    | {"Multi-model", "Multi-Model DBMS"}
+)
+
 
 def translate_model(s: str) -> str:
     if not s:
@@ -52,11 +62,11 @@ def translate_model(s: str) -> str:
 
 
 def clean_model_str(s: str) -> str:
-    """规范化英文 model：过滤超长营销文案、简称转全称、去重保序。"""
+    """规范化英文 model：过滤营销文案（白名单 + 超长双重过滤）、简称转全称、去重保序。"""
     if not s:
         return ""
     parts = [p.strip() for p in s.split(",") if p.strip()]
-    parts = [p for p in parts if len(p) <= MAX_MODEL_LEN]
+    parts = [p for p in parts if p in KNOWN_MODELS and len(p) <= MAX_MODEL_LEN]
     parts = [MODEL_NORMALIZE.get(p, p) for p in parts]
     seen, out = set(), []
     for p in parts:
@@ -105,7 +115,9 @@ def main():
             bad.append((i, r["dbms"], "(空)"))
             continue
         tmp = m
-        for w in ALLOWED:
+        # 按长度降序替换：先去掉 NoSQL 再处理 SQL，避免 "NoSQL" 被 "SQL" 子串
+        # 拆成 "No" 造成误报（set 无序迭代时该问题不稳定复现）
+        for w in sorted(ALLOWED, key=len, reverse=True):
             tmp = tmp.replace(w, "")
         if re.search(r"[A-Za-z]{2,}", tmp):
             bad.append((i, r["dbms"], m))
