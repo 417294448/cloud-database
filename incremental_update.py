@@ -163,6 +163,7 @@ def cmd_apply(delay):
     output = {
         "source": RANKING_URL,
         "ranking_month": month,
+        "updated_at": time.strftime("%Y-%m-%d"),
         "top_n": "all",
         "count": len(all_records),
         "databases": all_records,
