@@ -6582,6 +6582,22 @@
     },
     {
       "rank": 387,
+      "dbms": "OriginChain",
+      "database_model": "Relational DBMS, Document store, Vector DBMS, Graph DBMS, Search engine",
+      "database_model_cn": "关系型数据库，文档型数据库，向量数据库，图数据库，搜索引擎",
+      "detail_url": "https://db-engines.com/en/system/OriginChain",
+      "description": "An AI-native, fully managed database. Ask questions in plain English, or use SQL, vector, full-text and graph search — all against one store, behind a single endpoint and key. Single-tenant and region-isolated.",
+      "description_cn": "AI 原生的全托管数据库。可用自然语言提问，也可使用 SQL、向量、全文和图搜索——全部基于同一存储、通过单一端点和密钥访问。单租户且区域隔离。",
+      "website": "originchain.ai",
+      "developer": "",
+      "developer_cn": "OriginChain",
+      "initial_release": "",
+      "current_release": "v1.4",
+      "license": "Commercial/Proprietary engine with Open-source client SDK’s",
+      "license_cn": "商业/专有引擎，客户端 SDK 开源"
+    },
+    {
+      "rank": 387,
       "dbms": "RayforceDB",
       "database_model": "Columnar DBMS",
       "database_model_cn": "列式数据库",
@@ -6947,22 +6963,6 @@
       "current_release": "",
       "license": "Open Source",
       "license_cn": "开源"
-    },
-    {
-      "rank": 387,
-      "dbms": "OriginChain",
-      "database_model": "Relational DBMS, Document store, Vector DBMS, Graph DBMS, Search engine",
-      "database_model_cn": "关系型数据库，文档型数据库，向量数据库，图数据库，搜索引擎",
-      "detail_url": "https://db-engines.com/en/system/OriginChain",
-      "description": "An AI-native, fully managed database. Ask questions in plain English, or use SQL, vector, full-text and graph search — all against one store, behind a single endpoint and key. Single-tenant and region-isolated.",
-      "description_cn": "AI 原生的全托管数据库。可用自然语言提问，也可使用 SQL、向量、全文和图搜索——全部基于同一存储、通过单一端点和密钥访问。单租户且区域隔离。",
-      "website": "originchain.ai",
-      "developer": "",
-      "developer_cn": "OriginChain",
-      "initial_release": "",
-      "current_release": "v1.4",
-      "license": "Commercial/Proprietary engine with Open-source client SDK’s",
-      "license_cn": "商业/专有引擎，客户端 SDK 开源"
     }
   ]
 }
