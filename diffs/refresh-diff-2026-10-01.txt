@@ -1,0 +1,53 @@
+============================================================
+DB-Engines 数据变更报告
+============================================================
+生成时间: 2026-10-01
+旧数据月份: August 2026
+新数据月份: September 2026
+旧记录数: 435
+新记录数: 438
+净变化: +3
+
+【新增系统】3 条
+  + #386 Huawei Cloud TaurusDB (Relational DBMS, Spatial DBMS, Vector DBMS)
+  + #386 Infino AI (Search engine, Relational DBMS, Vector DBMS)
+  + #386 PuppyGraph (Graph DBMS)
+
+【排名变化】352 条
+  chDB: #335 -> #320 (-15)
+  Typesense: #160 -> #175 (+15)
+  Firebolt: #222 -> #237 (+15)
+  mSQL: #206 -> #220 (+14)
+  UniData,UniVerse: #116 -> #130 (+14)
+  Apache Doris: #250 -> #264 (+14)
+  FoundationDB: #170 -> #182 (+12)
+  TypeDB: #234 -> #223 (-11)
+  SAP SQL Anywhere: #83 -> #94 (+11)
+  RethinkDB: #104 -> #115 (+11)
+  PlanetScale: #131 -> #141 (+10)
+  RDFox: #308 -> #298 (-10)
+  TinkerGraph: #379 -> #370 (-9)
+  Stardog: #126 -> #117 (-9)
+  AgensGraph: #340 -> #331 (-9)
+  IBM Db2 warehouse: #180 -> #172 (-8)
+  Fluree: #287 -> #279 (-8)
+  VictoriaLogs: #359 -> #367 (+8)
+  GridDB: #163 -> #170 (+7)
+  Alibaba Cloud TSDB: #268 -> #275 (+7)
+  Apache IoTDB: #103 -> #96 (-7)
+  Alibaba Cloud Table Store: #356 -> #363 (+7)
+  Fujitsu Enterprise Postgres: #297 -> #304 (+7)
+  MyScale: #311 -> #318 (+7)
+  Vald: #301 -> #308 (+7)
+  Cloudflare Workers KV: #255 -> #261 (+6)
+  JanusGraph: #132 -> #126 (-6)
+  Arc: #171 -> #165 (-6)
+  Immudb: #318 -> #312 (-6)
+  Tajo: #329 -> #335 (+6)
+  ... 共 352 条，仅展示变化最大的 30 条
+
+【未变化】83 条（仅列出计数）
+
+============================================================
+报告结束
+============================================================
