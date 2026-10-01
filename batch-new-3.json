@@ -1,0 +1,19 @@
+{
+  "items": [
+    {
+      "index": 435,
+      "description_cn": "华为云 TaurusDB 是一款企业级、云原生分布式关系型数据库系统，基于现代存算分离架构构建。它完全兼容 MySQL 和 PostgreSQL，具备高性能、单实例最高可自动扩展至 128 TB 的能力，并提供强数据一致性。作为华为云（全球主要云服务提供商之一）的核心数据库服务，TaurusDB 被金融、电商、物流等多个行业广泛采用，每天处理海量生产负载。",
+      "developer_cn": "华为云"
+    },
+    {
+      "index": 436,
+      "description_cn": "Infino 是一款开源检索引擎，支持全文检索、向量检索和 SQL 检索，数据以 Apache Parquet 格式存储在对象存储上。",
+      "developer_cn": "Infino AI 公司（由 OpenSearch 的创建者创立）"
+    },
+    {
+      "index": 437,
+      "description_cn": "PuppyGraph 是市场上首个也是唯一一个实时、零 ETL 的图查询引擎，使数据团队能够在 10 分钟内把现有的关系型数据存储作为统一的图模型进行查询，同时规避传统图数据库在成本、延迟和维护方面的障碍。它最高可扩展到 PB 级数据，并能在数秒内执行复杂的 10 跳查询，支持从用知识图谱增强 LLM 到欺诈检测、网络安全等多种应用场景。",
+      "developer_cn": "PuppyGraph 公司"
+    }
+  ]
+}

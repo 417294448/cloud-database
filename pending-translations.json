@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "index": 435,
+      "rank": 386,
+      "dbms": "Huawei Cloud TaurusDB",
+      "description": "Huawei Cloud TaurusDB is an enterprise-class, cloud-native distributed relational database system built on a modern decoupled compute-and-storage architecture. It is fully compatible with MySQL and PostgreSQL, offering high performance, automatic scaling up to 128 TB per instance, and strong data consistency. As a core database service on Huawei Cloud (a major global cloud service provider), TaurusDB is widely adopted across various industries, including finance, e-commerce, and logistics, handling massive production workloads daily.",
+      "developer": "Huawei Cloud"
+    },
+    {
+      "index": 436,
+      "rank": 386,
+      "dbms": "Infino AI",
+      "description": "Infino is an open-source retrieval engine for full-text, vector, and SQL search, with your data stored as Apache Parquet on object storage.",
+      "developer": "Infino AI, Inc. Founded by creators of OpenSearch"
+    },
+    {
+      "index": 437,
+      "rank": 386,
+      "dbms": "PuppyGraph",
+      "description": "PuppyGraph is the first and only real-time, zero-ETL graph query engine in the market, empowering data teams to query existing relational data stores as a unified graph model in under 10 minutes while bypassing the cost, latency, and maintenance hurdles of traditional graph databases. Capable of scaling to petabytes of data and executing complex 10-hop queries in seconds, PuppyGraph supports use cases ranging from enhancing LLMs with knowledge graphs to fraud detection, cybersecurity, and more.",
+      "developer": ""
+    }
+  ]
+}
