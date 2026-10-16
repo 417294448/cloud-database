@@ -1,0 +1,55 @@
+============================================================
+DB-Engines 数据变更报告
+============================================================
+生成时间: 2026-10-16
+旧数据月份: August 2026
+新数据月份: October 2026
+旧记录数: 435
+新记录数: 440
+净变化: +5
+
+【新增系统】5 条
+  + #386 Huawei Cloud TaurusDB (Relational DBMS, Spatial DBMS, Vector DBMS)
+  + #386 HyperbyteDB (Time Series DBMS)
+  + #386 Infino AI (Search engine, Relational DBMS, Vector DBMS)
+  + #386 PuppyGraph (Graph DBMS)
+  + #386 TopK (Search engine, Vector DBMS)
+
+【排名变化】351 条
+  OpenQM: #309 -> #283 (-26)
+  GridDB: #163 -> #182 (+19)
+  FalkorDB: #285 -> #271 (-14)
+  Alibaba Cloud TSDB: #268 -> #282 (+14)
+  Stardog: #126 -> #113 (-13)
+  TinkerGraph: #379 -> #367 (-12)
+  TypeDB: #234 -> #222 (-12)
+  VictoriaLogs: #359 -> #371 (+12)
+  GreptimeDB: #330 -> #319 (-11)
+  OceanBase: #113 -> #124 (+11)
+  Vald: #301 -> #312 (+11)
+  AgensGraph: #340 -> #330 (-10)
+  HEAVY.AI: #183 -> #173 (-10)
+  Faircom EDGE: #371 -> #381 (+10)
+  PlanetScale: #131 -> #140 (+9)
+  Apache Doris: #250 -> #259 (+9)
+  Mulgara: #280 -> #289 (+9)
+  D3: #158 -> #167 (+9)
+  Apache Pinot: #240 -> #231 (-9)
+  Immudb: #318 -> #309 (-9)
+  Marqo: #272 -> #281 (+9)
+  Coveo: #110 -> #119 (+9)
+  Arc: #171 -> #162 (-9)
+  MyScale: #311 -> #320 (+9)
+  Kyligence Enterprise: #259 -> #251 (-8)
+  GBase: #123 -> #131 (+8)
+  Alibaba Cloud Log Service: #226 -> #234 (+8)
+  Faircom DB: #324 -> #332 (+8)
+  CnosDB: #274 -> #266 (-8)
+  Actian Vector: #232 -> #240 (+8)
+  ... 共 351 条，仅展示变化最大的 30 条
+
+【未变化】84 条（仅列出计数）
+
+============================================================
+报告结束
+============================================================
