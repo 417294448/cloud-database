@@ -1,0 +1,49 @@
+{
+  "items": [
+    {
+      "index": 435,
+      "rank": 386,
+      "dbms": "Huawei Cloud TaurusDB",
+      "description": "Huawei Cloud TaurusDB is an enterprise-class, cloud-native distributed relational database system built on a modern decoupled compute-and-storage architecture. It is fully compatible with MySQL and PostgreSQL, offering high performance, automatic scaling up to 128 TB per instance, and strong data consistency. As a core database service on Huawei Cloud (a major global cloud service provider), TaurusDB is widely adopted across various industries, including finance, e-commerce, and logistics, handling massive production workloads daily.",
+      "description_cn": "华为云 TaurusDB 是一款企业级云原生分布式关系型数据库，基于计算与存储解耦的现代架构。它完全兼容 MySQL 与 PostgreSQL，具备高性能、单实例最高可自动扩展至 128 TB、强数据一致性等特点。作为华为云（全球主要云服务商之一）的核心数据库服务，TaurusDB 被金融、电商、物流等众多行业广泛采用，每天承载海量生产负载。",
+      "developer": "Huawei Cloud",
+      "developer_cn": "华为云"
+    },
+    {
+      "index": 436,
+      "rank": 386,
+      "dbms": "HyperbyteDB",
+      "description": "HyperbyteDB is a high-performance, open-source time-series database written in Rust. It provides full InfluxDB v1 API compatibility (line protocol, InfluxQL, /write and /query endpoints) while delivering significantly better performance for high-cardinality workloads. Key features include: master-master replication with Raft consensus; embedded ClickHouse (chDB) for fast analytical queries; high write throughput and low-latency queries; designed for observability, IoT, monitoring, and real-time analytics.",
+      "description_cn": "HyperbyteDB 是一款用 Rust 编写的高性能开源时序数据库。它完整兼容 InfluxDB v1 API（行协议、InfluxQL、/write 与 /query 端点），同时在高基数负载下提供显著更优的性能。主要特性包括：基于 Raft 共识的主-主复制；内嵌 ClickHouse（chDB）以支持快速分析查询；高写入吞吐与低延迟查询；面向可观测性、物联网、监控和实时分析场景设计。",
+      "developer": "",
+      "developer_cn": "开源社区"
+    },
+    {
+      "index": 437,
+      "rank": 386,
+      "dbms": "Infino AI",
+      "description": "Infino is an open-source retrieval engine for full-text, vector, and SQL search, with your data stored as Apache Parquet on object storage.",
+      "description_cn": "Infino 是一款开源检索引擎，支持全文、向量和 SQL 搜索，数据以 Apache Parquet 格式存储在对象存储上。",
+      "developer": "Infino AI, Inc. Founded by creators of OpenSearch",
+      "developer_cn": "Infino AI 公司（由 OpenSearch 的创建者创立）"
+    },
+    {
+      "index": 438,
+      "rank": 386,
+      "dbms": "PuppyGraph",
+      "description": "PuppyGraph is the first and only real-time, zero-ETL graph query engine in the market, empowering data teams to query existing relational data stores as a unified graph model in under 10 minutes while bypassing the cost, latency, and maintenance hurdles of traditional graph databases. Capable of scaling to petabytes of data and executing complex 10-hop queries in seconds, PuppyGraph supports use cases ranging from enhancing LLMs with knowledge graphs to fraud detection, cybersecurity, and more.",
+      "description_cn": "PuppyGraph 是市场上首个也是唯一一个实时、零 ETL 的图查询引擎，让数据团队能在 10 分钟内把现有的关系型数据存储作为统一的图模型来查询，同时免去传统图数据库在成本、延迟和维护上的诸多障碍。它可扩展至 PB 级数据规模，并能在数秒内执行复杂的 10 跳查询，适用于用知识图谱增强 LLM，以及欺诈检测、网络安全等场景。",
+      "developer": "",
+      "developer_cn": "PuppyGraph 公司"
+    },
+    {
+      "index": 439,
+      "rank": 386,
+      "dbms": "TopK",
+      "description": "TopK is a search database for documents. It stores records with dense vectors, sparse multi-vectors, text and structured fields, and serves semantic, multi-vector, full-text, regex and filtered queries over them. Storage is object-storage based (S3) with compaction.",
+      "description_cn": "TopK 是一款面向文档的搜索数据库。它存储带有稠密向量、稀疏多向量、文本和结构化字段的记录，并对其提供语义、多向量、全文、正则和过滤查询。存储基于对象存储（S3），并支持压缩合并。",
+      "developer": "TopK Inc.",
+      "developer_cn": "TopK 公司"
+    }
+  ]
+}
