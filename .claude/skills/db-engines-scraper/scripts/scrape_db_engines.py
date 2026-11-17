@@ -282,6 +282,7 @@ def main():
     output = {
         "source": RANKING_URL,
         "ranking_month": month,
+        "updated_at": time.strftime("%Y-%m-%d"),
         "top_n": args.top if args.top is not None else "all",
         "count": len(records),
         "databases": records,

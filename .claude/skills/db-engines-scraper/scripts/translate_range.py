@@ -38,6 +38,7 @@ MODEL_CN = {
     "NoSQL DBMS": "NoSQL 数据库",
     "Columnar DBMS": "列式数据库",
     "Multi-Model DBMS": "多模型数据库",
+    "Multi-model": "多模型数据库",
     # 排名页单模型简称（站点对非 Multi-model 系统的缩写显示）
     "Relational": "关系型数据库",
     "Document": "文档型数据库",
@@ -60,7 +61,11 @@ MODEL_CN = {
     "Columnar": "列式数据库",
     "Observability": "可观测性平台",
 }
-LICENSE_CN = {"commercial": "商业许可", "Open Source": "开源"}
+LICENSE_CN = {
+    "commercial": "商业许可",
+    "Open Source": "开源",
+    "Commercial/Proprietary engine with Open-source client SDK’s": "商业/专有引擎，客户端 SDK 开源",
+}
 
 
 def translate_model(s):

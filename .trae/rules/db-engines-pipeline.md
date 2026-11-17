@@ -5,25 +5,46 @@ description: 从 DB-Engines (db-engines.com) 抓取数据库排名及各系统�
 
 # DB-Engines 排名抓取、翻译与可视化
 
-把 https://db-engines.com/en/ranking 的完整排名（434 个系统，单页无分页）及各系统内页 "Editorial information provided by DB-Engines" 表格，固化为带中英双语字段的 `database-info.json`，并生成单文件离线分析页 `index.html`。
+把 https://db-engines.com/en/ranking 的完整排名（数量以排名页声明为准，单页无分页）及各系统内页 "Editorial information provided by DB-Engines" 表格，固化为带中英双语字段的 `database-info.json`，并生成单文件离线分析页 `index.html`。
 
 ## 脚本绝对路径（项目根目录）
 
 | 脚本 | 绝对路径 | 作用 |
 |---|---|---|
-| build_html | `D:\github-code\cloud-database\build_html.py` | 把 JSON 注入 index.template.html → index.html |
-| fix_data | `D:\github-code\cloud-database\fix_data.py` | 修名字尾巴、规范化 model、枚举预填 model_cn/license_cn |
-| incremental_update | `D:\github-code\cloud-database\incremental_update.py` | 排名月度更新：diff 预览 → apply → merge 译文 |
-| retry_failed | `D:\github-code\cloud-database\retry_failed.py` | 重抓 description + website 双空的记录 |
-| scrape_db_engines | `D:\github-code\cloud-database\scrape_db_engines.py` | 抓排名页 + 434 个内页 → database-info.json |
-| translate_cn | `D:\github-code\cloud-database\translate_cn.py` | 20 条/批顺序推进，进度存 .translate-progress.json |
-| translate_range | `D:\github-code\cloud-database\translate_range.py` | 按 [start,end) 区间输出待翻译清单 / 合并译文 |
+| build_html | `/workspace/build_html.py` | 把 JSON 注入 index.template.html → index.html |
+| fix_data | `/workspace/fix_data.py` | 修名字尾巴、规范化 model、枚举预填 model_cn/license_cn |
+| incremental_update | `/workspace/incremental_update.py` | 排名月度更新：diff 预览 → apply → merge 译文 |
+| retry_failed | `/workspace/retry_failed.py` | 重抓 description + website 双空的记录 |
+| scrape_db_engines | `/workspace/scrape_db_engines.py` | 抓排名页 + 全部内页 → database-info.json |
+| translate_cn | `/workspace/translate_cn.py` | 20 条/批顺序推进，进度存 .translate-progress.json |
+| translate_range | `/workspace/translate_range.py` | 按 [start,end) 区间输出待翻译清单 / 合并译文 |
 
 数据 / 模板文件：
-- `D:\github-code\cloud-database\database-info.json` — 核心数据集（434 条，14 字段/条）
-- `D:\github-code\cloud-database\index.template.html` — 页面模板（含 `__DATA_PLACEHOLDER__`）
-- `D:\github-code\cloud-database\index.html` — 最终产物（单文件、零依赖、离线可开）
+- `/workspace/database-info.json` — 核心数据集（数量以排名页为准，14 字段/条）
+- `/workspace/index.template.html` — 页面模板（含 `__DATA_PLACEHOLDER__`）
+- `/workspace/index.html` — 最终产物（单文件、零依赖、离线可开）
 
+
+## 自主执行原则（默认全自动，中途无需人工接管）
+
+除非用户在本轮明确要求"先看 diff / 等我确认 / 只做某一步"，否则 AI 必须自主判断并一次性跑完整个流程，**不得中途停下来等待人工确认或要求用户手工提供译文**：
+
+- **自主选路径**：按下表判断走全量还是增量，不需要询问用户。
+- **自主识别变化**：每次都必须重新抓取排名页并按 `detail_url` 逐条 diff，自行识别新增 / 移除 / 改名；不要用总数变化代替 diff，也不要因为"看起来没变"跳过抓取。
+- **自主翻译**：新增或缺失的 `description_cn`、`developer_cn` 由 AI 按下方"翻译规则"直接生成并写回；`license` 非标准值同样由 AI 精译。禁止输出"待人工翻译"、禁止把 `*_cn` 留空、禁止等待用户填写。
+- **自主校验与自愈**：按"验收清单"逐项自查；发现字段缺失、页面异常等问题时自行重跑 `retry_failed.py` / `fix_data.py` / `build_html.py` 修复，而不是把问题抛回给用户。
+- **自主收尾**：翻译合并 → `fix_data.py` → `build_html.py` → 页面验证 → 汇报，全程连续执行。
+- **仅在无法自行恢复时上报**：站点持续不可达、抓取连续失败且重试无效、diff 结果与排名页明显矛盾等异常，才向用户说明情况；普通的数据空缺按"已知特例"处理。
+
+### 路径自动判断
+
+| 场景 | 判断 | 执行方式 |
+|---|---|---|
+| 用户要求"重新抓取全部 / 确认现有系统版本号是否有更新" | 全量 | 标准流水线五步 |
+| 已有 `database-info.json`，用户只说"重新抓取/更新排名" | 增量 | `--diff` → `--apply` → 自动翻译新增 → 收尾 |
+| 没有 `database-info.json` | 全量 | 标准流水线五步 |
+| `--apply` 后无新增系统 | 无需翻译 | 直接 `fix_data.py` + `build_html.py` |
+| `--apply` 后有新增系统 | AI 自动翻译 | 翻译 `pending-translations.json` → `--merge-translations` → 收尾 |
 
 ## 运行环境
 
@@ -44,7 +65,7 @@ python retry_failed.py database-info.json
 # 3. 数据清洗 + 规范化 + model/license 枚举预翻译
 python fix_data.py database-info.json
 
-# 4. 翻译 description_cn / developer_cn（见下方"翻译流程"）
+# 4. 翻译 description_cn / developer_cn：AI 按下方"翻译流程"直接翻译并合并，无需等待人工
 python translate_range.py --start 0 --end 75 --merge batch-0-75.json
 
 # 5. 生成静态分析页（模板在项目根目录下，单文件离线可用）
@@ -55,7 +76,7 @@ python build_html.py -d database-info.json -t index.template.html -o index.html
 
 ## 日常更新（已有 database-info.json 时优先用这个，不要走全量流水线）
 
-DB-Engines 排名每月变化，但**大多数系统本身不变**——434 次内页请求里，99% 都是在重新下载没变过的内容。已有 `database-info.json` 时，用 `incremental_update.py` 做增量更新：只对新增系统抓内页，已有系统直接复用旧的 description/website/developer/license/`*_cn` 字段，只刷新排名页本身就能拿到的 `rank`（每次都变）和 `database_model`（偶尔变）。
+DB-Engines 排名每月变化，但**大多数系统本身不变**——全量内页请求里，99% 都是在重新下载没变过的内容。已有 `database-info.json` 时，用 `incremental_update.py` 做增量更新：只对新增系统抓内页，已有系统直接复用旧的 description/website/developer/license/`*_cn` 字段，只刷新排名页本身就能拿到的 `rank`（每次都变）和 `database_model`（偶尔变）。
 
 **不要**用"总数变没变"来判断要不要更新——排名可能同时一增一减导致总数不变，但集合确实变了；也不要用总数判断"不用更新"就跳过整个流程。正确做法是**每次都重新抓一次排名页**（只有 1 次请求，很轻），然后按 `detail_url` 逐条 diff 出新增 / 移除 / 保留，而不是先看数量再决定。
 
@@ -70,8 +91,8 @@ python incremental_update.py --apply
 python fix_data.py database-info.json
 python build_html.py -d database-info.json -t index.template.html -o index.html
 
-# 3b. 若有新增系统，先翻译 pending-translations.json 里列出的 description/developer
-#     （规则同下方"翻译流程"），写成同结构文件后合并，再收尾：
+# 3b. 若有新增系统，AI 直接按下方"翻译规则"翻译 pending-translations.json 中的
+#     description/developer，写回同结构文件后合并，再收尾（不得等待用户人工翻译）：
 python incremental_update.py --merge-translations pending-translations.json
 python fix_data.py database-info.json
 python build_html.py -d database-info.json -t index.template.html -o index.html
@@ -119,13 +140,13 @@ python build_html.py -d database-info.json -t index.template.html -o index.html
 
 ## 翻译流程（步骤 4）
 
-`database_model_cn` 和 `license_cn` 由 `fix_data.py` 用枚举表预填，**不需要翻译接口**。只有 `description_cn` 和 `developer_cn` 需要逐条翻译。
+`database_model_cn` 和 `license_cn` 由 `fix_data.py` 用枚举表预填，**不需要翻译接口**。只有 `description_cn` 和 `developer_cn` 需要逐条翻译，全部由 AI 直接完成，**不需要人工介入**。
 
-434 条数据建议**分区间并行**处理（每区间 75 条，6 个子代理）。如果不需要并行，也可以用 `translate_cn.py` 按 20 条/批顺序推进（进度保存在 `.translate-progress.json`），作为 `translate_range.py` 的替代方案：
+数据量较大时建议**分区间并行**处理（每区间 75 条，6 个子代理），全部由 AI 自己翻译；如果不需要并行，也可以用 `translate_cn.py` 按 20 条/批顺序推进（进度保存在 `.translate-progress.json`），作为 `translate_range.py` 的替代方案：
 
 ```bash
 python translate_cn.py --extract     # 输出当前批次待翻译内容
-# 翻译后写入 translations-batch.json
+# AI 直接翻译后写入 translations-batch.json
 python translate_cn.py --merge translations-batch.json
 ```
 
@@ -134,18 +155,18 @@ python translate_cn.py --merge translations-batch.json
 ```bash
 # 每个子代理执行（以区间 [0,75) 为例）：
 python translate_range.py --start 0 --end 75            # 输出待翻译清单 JSON
-# -> 人工/Claude 翻译后写 batch-0-75.json，格式：
+# -> AI 直接翻译后写 batch-0-75.json，格式：
 #    {"items": [{"index": 0, "description_cn": "...", "developer_cn": "..."}, ...]}
 python translate_range.py --start 0 --end 75 --merge batch-0-75.json
 ```
 
-区间划分（JSON 索引，非 rank）：`[0,75)` `[75,150)` `[150,225)` `[225,300)` `[300,375)` `[375,434)`，每个子代理只写自己区间，互不冲突。
+区间按数据实际条数划分（JSON 索引，非 rank），例如 `[0,75)` `[75,150)` … 直至覆盖全部记录；每个子代理只写自己区间，互不冲突。区间边界由 AI 根据当前 `count` 自行计算，不要沿用固定的旧总数。
 
 **翻译规则：**
 
 - `description`：通顺意译，保留产品名/技术名词原文（Hadoop、ACID、RDBMS、BigTable 等）；英文为空则留空 `""`。
 - `developer`：公司/机构用通行中文名（Microsoft→微软、Google→谷歌、Amazon→亚马逊、Oracle→甲骨文、IBM/SAP→IBM/SAP、Apache Software Foundation→Apache 软件基金会、MongoDB, Inc→MongoDB 公司）；**个人姓名保留原文**（Dwayne Richard Hipp、Salvatore Sanfilippo 等）；多个主体用顿号"、"连接；**英文为空则按语境补**——知名开源项目填"开源社区"，能确定归属的填公司中文名（CloudKit→苹果、Infinispan→Red Hat、gStore→北京大学），无法确定填"开源社区"。
-- `license` 有 13 条非标准值（不是 `Open Source`/`commercial`），如 ArangoDB 的 BSL 1.1 转换条款、SpacetimeDB 的 4 年转 AGPL，需要人工精译，不能枚举查表。
+- `license` 有少量非标准值（不是 `Open Source`/`commercial`），如 ArangoDB 的 BSL 1.1 转换条款、SpacetimeDB 的 4 年转 AGPL，由 AI 逐条精译，不能枚举查表，也不要留给人工处理。
 
 ## 静态分析页（步骤 5）
 
@@ -173,11 +194,11 @@ python translate_range.py --start 0 --end 75 --merge batch-0-75.json
 
 ## 验收清单（全部完成后向用户汇报前必做）
 
-1. `count` 等于排名页声明的系统数（当前 434）；
-2. `description + website` 均空的记录为 0 或个位数（多则重跑 `retry_failed.py`）；
+1. `count` 等于本次排名页实际解析出的系统数（以抓取结果为准，不要硬编码历史数字）；
+2. `description + website` 均空的记录为 0 或个位数（多则自行重跑 `retry_failed.py`）；
 3. `database_model_cn` 无未翻译英文（注意 "RDF 存储"/"XML"/"NoSQL"/"SQL" 是合法译文，验证时加入白名单）；
-4. `license_cn`：英文非空的记录全部有中文（`fix_data.py` + 13 条非标准值人工补）；
-5. `developer_cn`：434 条全非空；
+4. `license_cn`：英文非空的记录全部有中文（`fix_data.py` 覆盖标准值，非标准值由 AI 自行精译补全）；
+5. `developer_cn`：全部记录非空（数量以 `count` 为准）；
 6. 抽查 Top 10、末位几条、以及曾出问题的 CockroachDB（#69）/Arango（#81）；
 7. 若生成了 index.html：数据块可 `json.loads` 解析、无外部资源引用、JS 括号平衡（有 node 则 `node --check` 通过）；
 8. 若走的是增量更新：抽查若干条**未变化**的系统，确认其内页字段（description/website/developer/license）与更新前完全一致，不应有变化——若有变化说明 diff 逻辑退化，需要排查。

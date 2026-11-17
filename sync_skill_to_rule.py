@@ -24,7 +24,7 @@ SCRIPT_ROLES = {
     "fix_data.py": "修名字尾巴、规范化 model、枚举预填 model_cn/license_cn",
     "incremental_update.py": "排名月度更新：diff 预览 → apply → merge 译文",
     "retry_failed.py": "重抓 description + website 双空的记录",
-    "scrape_db_engines.py": "抓排名页 + 434 个内页 → database-info.json",
+    "scrape_db_engines.py": "抓排名页 + 全部内页 → database-info.json",
     "translate_cn.py": "20 条/批顺序推进，进度存 .translate-progress.json",
     "translate_range.py": "按 [start,end) 区间输出待翻译清单 / 合并译文",
 }
@@ -75,7 +75,7 @@ def make_script_table(repo: Path) -> str:
     lines.extend([
         "\n",
         "数据 / 模板文件：\n",
-        f"- `{root / 'database-info.json'}` — 核心数据集（434 条，14 字段/条）\n",
+        f"- `{root / 'database-info.json'}` — 核心数据集（数量以排名页为准，14 字段/条）\n",
         f"- `{root / 'index.template.html'}` — 页面模板（含 `__DATA_PLACEHOLDER__`）\n",
         f"- `{root / 'index.html'}` — 最终产物（单文件、零依赖、离线可开）\n",
         "\n",
