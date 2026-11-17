@@ -1,0 +1,52 @@
+============================================================
+DB-Engines 数据变更报告
+============================================================
+生成时间: 2026-11-17
+旧数据月份: October 2026
+新数据月份: November 2026
+旧记录数: 440
+新记录数: 442
+净变化: +2
+
+【新增系统】2 条
+  + #387 HeliosDB Nano (Relational DBMS)
+  + #387 KiviDB (Document store, Key-value store, Time Series DBMS, Search engine, Vector DBMS)
+
+【排名变化】338 条
+  Firebolt: #229 -> #200 (-29)
+  Alibaba Cloud Table Store: #358 -> #330 (-28)
+  HEAVY.AI: #173 -> #152 (-21)
+  Fluree: #280 -> #265 (-15)
+  OpenQM: #283 -> #270 (-13)
+  CnosDB: #266 -> #279 (+13)
+  Transwarp ArgoDB: #386 -> #373 (-13)
+  PlanetScale: #140 -> #128 (-12)
+  TinkerGraph: #367 -> #378 (+11)
+  EDB Postgres: #143 -> #133 (-10)
+  VictoriaLogs: #371 -> #381 (+10)
+  RisingWave: #210 -> #219 (+9)
+  mSQL: #213 -> #204 (-9)
+  TigerGraph: #126 -> #135 (+9)
+  Lovefield: #342 -> #351 (+9)
+  Alibaba Cloud PolarDB: #85 -> #94 (+9)
+  Fauna: #148 -> #157 (+9)
+  Northgate Reality: #255 -> #263 (+8)
+  MonetDB: #151 -> #159 (+8)
+  Valkey: #95 -> #87 (-8)
+  BaseX: #153 -> #161 (+8)
+  ZODB: #220 -> #212 (-8)
+  Databend: #285 -> #277 (-8)
+  VistaDB: #275 -> #282 (+7)
+  Cloudflare Workers KV: #257 -> #250 (-7)
+  RRDtool: #156 -> #149 (-7)
+  Apache Doris: #259 -> #252 (-7)
+  FeatureBase: #292 -> #285 (-7)
+  GraphDB: #108 -> #115 (+7)
+  Alibaba Cloud AnalyticDB for PostgreSQL: #233 -> #240 (+7)
+  ... 共 338 条，仅展示变化最大的 30 条
+
+【未变化】102 条（仅列出计数）
+
+============================================================
+报告结束
+============================================================
